@@ -62,7 +62,7 @@ class tx_t3quotes_pi1 extends tslib_pibase {
 		
 
 			// Initializing the query parameters:
-		$this->internal["results_at_a_time"]=t3lib_div::intInRange($lConf["results_at_a_time"],0,1000,1000);
+		$this->internal["results_at_a_time"]=t3lib_div::intInRange($this->lConf["results_at_a_time"],0,1000,1000);
 		
 			// Only selected:
 		$addWhere= $this->conf["selectedOnly"]	? ' AND tx_t3quotes.selected' : '';
