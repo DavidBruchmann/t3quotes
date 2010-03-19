@@ -1,0 +1,42 @@
+plugin.tx_t3quotes_pi1.CSS_editor = Plugin: "tx_t3quotes_pi1"
+plugin.tx_t3quotes_pi1.CSS_editor.selector = .tx-t3quotes-pi1
+plugin.tx_t3quotes_pi1.CSS_editor.exampleWrap = <HR><strong>Plugin: "tx_t3quotes_pi1"</strong><HR><DIV class="tx-t3quotes-pi1"> | </DIV>
+plugin.tx_t3quotes_pi1.CSS_editor.ch {
+	P = Text
+	P.selector = P
+	P.attribs = BODYTEXT
+	P.example = <P>General text wrapped in &lt;P&gt;:<BR>This is text <A href="#">with a link</A> in it. In principio creavit Deus caelum et terram terra autem erat inanis et vacua et tenebrae super faciem abyssi et spiritus...</P>
+	P.exampleStop = 1
+	P.ch.links = < CSS_editor.ch.A
+	
+	list = List display
+	list.selector = .tx-t3quotes-pi1-listrow
+	list.example (
+		<DIV class="tx-t3quotes-pi1-listrow">
+			<P class="tx-t3quotes-pi1-listrowField-author"><b> 5. November 2002</b> by <b>jgl</b></P>
+			<P class="tx-t3quotes-pi1-listrowField-quote">I just want to say that this is one of the best things on the web. The development is constant, the support is great and friendly, and the clients we have running this are happy!</P>
+			<p class="tx-t3quotes-pi1-listrowField-preface"><strong>Comment:</strong> This is a comment from the editor.</p>
+			
+			<P class="tx-t3quotes-pi1-listrowField-author"><b> 3. November 2002</b> by <b><A HREF="#">Stafford Shealy</a>, Executive Information Officer, Dynomat Inc.</b></P>
+			<P class="tx-t3quotes-pi1-listrowField-quote">Thanks again for the BEST open source project I have ever seen!<br />You can quote me on that.</P>
+		</DIV>
+	)
+	list.exampleWrap = <DIV class="tx-t3quotes-pi1-listrow"> | </DIV>
+	list.exampleStop = 1
+	list.ch.P < .P
+	list.ch.P.ch {
+		
+		P_0 = Date and Author paragraph
+		P_0.selector = +.tx-t3quotes-pi1-listrowField-author
+		P_0.attribs = BODYTEXT
+		P_0.ch.links = < CSS_editor.ch.A
+		
+		P_1 = The Quote
+		P_1.selector = +.tx-t3quotes-pi1-listrowField-quote
+		P_1.attribs = BODYTEXT
+		
+		P_2 = Optional comment paragraph
+		P_2.selector = +.tx-t3quotes-pi1-listrowField-preface
+		P_2.attribs = BODYTEXT
+	}
+}
