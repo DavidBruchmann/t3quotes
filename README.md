@@ -22,6 +22,7 @@ Till the extension can be marked as stable no further features shall be included
 installation
 ------------
 installation is currently only provided in the conventional way by extension-manager. Releases will be provided on github as well as on the so called "TER", the official [TYPO3-extension-website](https://extensions.typo3.org/extension/t3quotes/).
+Documentation willbe provided in the folder `Documentation` of the extension and on the [wiki-site](https://github.com/DavidBruchmann/t3quotes/wiki).
 
 
 
