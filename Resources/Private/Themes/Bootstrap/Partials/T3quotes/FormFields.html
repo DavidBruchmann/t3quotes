@@ -1,0 +1,47 @@
+<h2>Partial FormFields (View: Default)</h2>
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<label for="preface">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.preface" />
+</label><br />
+	<f:form.textarea property="preface" cols="40" rows="15" /><br />
+<label for="quote">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.quote" />
+</label><br />
+	<f:form.textarea property="quote" cols="40" rows="15" /><br />
+<label for="fullContext">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.full_context" />
+</label><br />
+	<f:form.textarea property="fullContext" cols="40" rows="15" /><br />
+<label for="authorName">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.author_name" />
+</label><br />
+	<f:form.textfield property="authorName" /><br />
+<label for="authorEmail">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.author_email" />
+</label><br />
+	<f:form.textfield property="authorEmail" /><br />
+<label for="authorTitle">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.author_title" />
+</label><br />
+	<f:form.textfield property="authorTitle" /><br />
+<label for="weight">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.weight" />
+</label><br />
+	<f:form.textfield property="weight" /><br />
+<label for="date">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.date" />
+</label><br />
+	<f:form.textfield property="date" value="{t3quotes.date->f:format.date()}" /><br />
+<label for="selected">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.selected" />
+</label><br />
+	<f:form.checkbox property="selected" value="1" /><br />
+<label for="rotationQuote">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.rotation_quote" />
+</label><br />
+	<f:form.textfield property="rotationQuote" /><br />
+<label for="authstate">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.authstate" />
+</label><br />
+	<f:form.checkbox property="authstate" value="1" /><br />
+</html>

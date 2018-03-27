@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-26T01:28:36Z" product-name="t3quotes">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3Quotes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.ce-wizard.name">
+				<source>Quotes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.ce-wizard.description">
+				<source>Display collection of quotes on the webpage.</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.preface">
+				<source>Editors comment</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.quote">
+				<source>Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.full_context">
+				<source>Full Context</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_name">
+				<source>Author Name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_email">
+				<source>Author Email</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_title">
+				<source>Author Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight">
+				<source>Sorting Weight</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.0">
+				<source>High priority</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.1">
+				<source>Normal priority</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.2">
+				<source>Low priority</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.selected">
+				<source>Selected</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.rotation_quote">
+				<source>Rotation quote (very short)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
+				<source>Authenticated (show full name, email and title)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent">
+				<source>Tt Content</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">
+				<source>Show selected quotes only</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

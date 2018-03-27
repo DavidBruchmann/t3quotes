@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-26T01:28:36Z" product-name="t3quotes">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3Quotes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3quotes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.preface">
+				<source>Preface</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.quote">
+				<source>Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.full_context">
+				<source>Full Context</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_name">
+				<source>Author Name</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_email">
+				<source>Author Email</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_title">
+				<source>Author Title</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight">
+				<source>Weight</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.date">
+				<source>Date</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.selected">
+				<source>Selected</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.rotation_quote">
+				<source>Rotation Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
+				<source>Authstate</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent">
+				<source>Tt Content</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">
+				<source>T3quotes Selected</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-26T01:28:36Z" product-name="t3quotes">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3Quotes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+			</trans-unit>
+			<trans-unit id="t3quotes_selected.description">
+				<source>t3quotesSelected</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

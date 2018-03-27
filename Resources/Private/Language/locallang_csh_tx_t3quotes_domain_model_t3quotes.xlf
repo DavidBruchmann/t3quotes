@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-03-26T01:28:36Z" product-name="t3quotes">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3Quotes</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+			</trans-unit>
+			<trans-unit id="preface.description">
+				<source>preface</source>
+			</trans-unit>
+			<trans-unit id="quote.description">
+				<source>quote</source>
+			</trans-unit>
+			<trans-unit id="full_context.description">
+				<source>fullContext</source>
+			</trans-unit>
+			<trans-unit id="author_name.description">
+				<source>authorName</source>
+			</trans-unit>
+			<trans-unit id="author_email.description">
+				<source>authorEmail</source>
+			</trans-unit>
+			<trans-unit id="author_title.description">
+				<source>authorTitle</source>
+			</trans-unit>
+			<trans-unit id="weight.description">
+				<source>weight</source>
+			</trans-unit>
+			<trans-unit id="date.description">
+				<source>date</source>
+			</trans-unit>
+			<trans-unit id="selected.description">
+				<source>selected</source>
+			</trans-unit>
+			<trans-unit id="rotation_quote.description">
+				<source>rotationQuote</source>
+			</trans-unit>
+			<trans-unit id="authstate.description">
+				<source>authstate</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
