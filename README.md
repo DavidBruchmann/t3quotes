@@ -8,7 +8,9 @@ All versions starting with 2.0.0 are compatibel with TYPO3-7.6, TYPO3-8 and TYPO
 The first two versions 0.1.1 and 0.1.2 have been developed and published by the creator of the system TYPO3
 **Kasper Skårhøj**, these versions are very old and not running on current versions of TYPO3.  
 
-David Bruchmann is assigned as official maintainer of the extension t3quotes and therefore any issues, propositions and pull requests are at best reported on his [github-page](https://github.com/DavidBruchmann/t3quotes/).  
+David Bruchmann is assigned as official maintainer of the extension t3quotes and therefore any issues, propositions and pull requests are at best reported on his [github-page](https://github.com/DavidBruchmann/t3quotes/).
+
+Usage for production serves is not yet advised.
 
 features
 --------
@@ -27,7 +29,7 @@ Documentation will be provided in the folder `Documentation` of the extension an
 Sponsoring
 ----------
 We'd appreciate sponsoring for the development of this extension, please contact David Bruchmann for details.    
-Mail: [david.bruchmann@gmail.com](mailto:david.bruchmann@gmail.com?subject=Sponsoring for t3quotes)
+Mail: [david.bruchmann@gmail.com]('mailto:david.bruchmann@gmail.com?subject=Sponsoring for t3quotes')
 
 
 
