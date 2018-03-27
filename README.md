@@ -4,7 +4,7 @@ t3quotes
 
 preface
 -------
-All versions starting with 2.0.0 are compatibel with TYPO3-7.6, TYPO3-8 and TYPO3-9.  
+All versions starting with 2.0.0 are compatibel with TYPO3-7.6, TYPO3-8 and TYPO3-9, the current t3quotes-version has been tested already on all these versions of TYPO3.
 The first two versions 0.1.1 and 0.1.2 have been developed and published by the creator of the system TYPO3   
 **Kasper Skårhøj**, these versions are very old and not running on current versions of TYPO3.  
 
