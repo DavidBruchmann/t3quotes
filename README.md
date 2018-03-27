@@ -13,7 +13,7 @@ David Bruchmann is assigned as official maintainer of the extension t3quotes and
 features
 --------
 The provided features are almost the same as in the initial concept of Kasper Skårhøj in 2002 while the complete code is absolutely new.  
-Two Details are technically new and special even related to TYPO3:  
+Two Details are technically new:  
 - For the extension are different themes available, between these themes can be easily switched just by TypoScript.  
 - The extension includes templates to add new quotes in the frontend. This requires still some binding to users in frontend and/or backend to avoid spamming by anonymous users.
 
