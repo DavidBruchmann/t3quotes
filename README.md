@@ -29,7 +29,7 @@ Documentation will be provided in the folder `Documentation` of the extension an
 Sponsoring
 ----------
 We'd appreciate sponsoring for the development of this extension, please contact David Bruchmann for details.    
-Mail: [david.bruchmann@gmail.com]('mailto:david.bruchmann@gmail.com?subject=Sponsoring for t3quotes')
+Mail: david.bruchmann@gmail.com
 
 
 
