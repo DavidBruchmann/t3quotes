@@ -28,9 +28,7 @@ Documentation will be provided in the folder `Documentation` of the extension an
 
 current state of development
 ----------------------------
-Please have a look on the issue-pages[1] or/and the project-page[2]:
-# https://github.com/DavidBruchmann/t3quotes/issues+
-# https://github.com/DavidBruchmann/t3quotes/projects/1
+Please have a look on the [issue-pages](https://github.com/DavidBruchmann/t3quotes/issues) or/and the [project-page](https://github.com/DavidBruchmann/t3quotes/projects/1).
 
 Sponsoring
 ----------
