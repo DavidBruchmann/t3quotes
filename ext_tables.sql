@@ -18,6 +18,8 @@ CREATE TABLE tx_t3quotes_domain_model_t3quotes (
 	rotation_quote varchar(255) DEFAULT '' NOT NULL,
 	authstate tinyint(1) unsigned DEFAULT '0' NOT NULL,
 
+	categories int(11) unsigned DEFAULT '0' NOT NULL,
+
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
@@ -56,8 +58,15 @@ CREATE TABLE tt_content (
 );
 
 #
-# Table structure for table 'tx_t3quotes_domain_model_t3quotes'
+# Table structure for table 'cf_t3quotes_t3quotes'
 #
-CREATE TABLE tx_t3quotes_domain_model_t3quotes (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
+CREATE TABLE `cf_t3quotes_t3quotes` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `identifier` varchar(250) NOT NULL DEFAULT '',
+  `expires` int(11) UNSIGNED NOT NULL DEFAULT '0',
+  `content` mediumblob,
+
+  PRIMARY KEY (`id`),
+  KEY `cache_id` (`identifier`,`expires`)
 );
+

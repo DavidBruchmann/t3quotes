@@ -28,12 +28,42 @@ class T3quotesView extends \TYPO3\CMS\Fluid\View\StandaloneView
     public function __construct(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer $contentObject = null)
     {
 		parent::__construct($contentObject);
-		
 	}
 	
 //	public function setLayoutRootPaths() {}
 //	public function setTemplateRootPaths() {}
 //	public function setPartialRootPaths() {}
+
+    /**
+     * Returns a unique identifier for the resolved template file
+     * This identifier is based on the template path and last modification date
+     *
+     * @param string $actionName Name of the action. This argument is not used in this view!
+     * @return string template identifier
+     * @throws InvalidTemplateResourceException
+     */
+    protected function getTemplateIdentifier($actionName = null)
+    {
+        if ($this->templateSource === null) {
+            $templatePathAndFilename = $this->getTemplatePathAndFilename();
+/*
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
+	'method' => __METHOD__,
+	'getTemplatePathAndFilename()' => $this->getTemplatePathAndFilename(),
+	'$this->getTemplatePathAndFilename()' => $this->getTemplatePathAndFilename()
+));
+*/
+            $templatePathAndFilenameInfo = pathinfo($templatePathAndFilename);
+            $templateFilenameWithoutExtension = basename($templatePathAndFilename, '.' . $templatePathAndFilenameInfo['extension']);
+            $prefix = sprintf('template_file_%s', $templateFilenameWithoutExtension);
+            return $this->createIdentifierForFile($templatePathAndFilename, $prefix);
+        } else {
+            $templateSource = $this->getTemplateSource();
+            $prefix = 'template_source';
+            $templateIdentifier = sprintf('Standalone_%s_%s', $prefix, sha1($templateSource));
+            return $templateIdentifier;
+        }
+    }
 
     /**
      * Returns the Fluid template source code
@@ -130,6 +160,15 @@ class T3quotesView extends \TYPO3\CMS\Fluid\View\StandaloneView
      */
     protected function createIdentifierForFile($pathAndFilename, $prefix)
     {
+/*
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
+	'method' => __METHOD__,
+	'$pathAndFilename' => $pathAndFilename,
+	'$this->templatePathAndFilename' => $this->templatePathAndFilename,
+	'$this->settings' => $this->settings
+	# TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
+));
+*/
 		$resolvedFileNamePath = $this->resolveFileNamePath($this->templatePathAndFilename);
         $templateModifiedTimestamp = filemtime($resolvedFileNamePath);
         $templateIdentifier = sprintf('Standalone_%s_%s', $prefix, sha1($resolvedFileNamePath . '|' . $templateModifiedTimestamp));

@@ -7,24 +7,18 @@ function configureT3quotesPlugin()
 	\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
 		'WDB.T3quotes',
 		'T3quotes',
-		[
-			'T3quotes' => 'list, show, new, create, edit, update, delete'
-		],
+		['T3quotes' => 'list, show, new, create, edit, update, delete'],
 		// non-cacheable actions
-		[
-			'T3quotes' => 'create, update, delete'
-		]
+		['T3quotes' => 'create, update, delete']
 	);
 }
 
 function configureT3quotesWizards($v='')
 {
-	if($v === 'v7')
-	{
+	if($v === 'v7'){
 		$icon = 'icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3quotes') . 'Resources/Public/Icons/user_plugin_t3quotes.svg';
 	}
-	elseif($v === 'v8')
-	{
+	elseif($v === 'v8+'){
 		$icon = 'iconIdentifier = t3quotes-plugin-t3quotes';
 	}
 	
@@ -74,15 +68,13 @@ else
 	call_user_func(function()
 	{
 		configureT3quotesPlugin();
-		configureT3quotesWizards('v8');
+		configureT3quotesWizards('v8+');
 		addT3quotesIconToRegistry();
 	});
 }
 
-/**
- * Adding the admin panel to users by default and forcing the display of the edit-icons
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addUserTSConfig('
-	options.saveDocNew.tx_t3quotes_domain_model_t3quotes = top
-');
- */
 
+// cache for storing typoscript-constants
+if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3quotes_t3quotes'])) {
+    $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3quotes_t3quotes'] = array();
+}

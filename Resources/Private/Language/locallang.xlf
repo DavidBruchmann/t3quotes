@@ -45,12 +45,44 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
 				<source>Authstate</source>
 			</trans-unit>
-			<trans-unit id="tx_t3quotes_domain_model_ttcontent">
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
 				<source>Tt Content</source>
 			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.t3quotes_selected">
+				<source>T3quotes Selected</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.by">
+				<source>by</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.linkBackToList">
+				<source>Back to List</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.btnCreateNewQuote">
+				<source>Save this new Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.headlineNewQuote">
+				<source>New Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.linkNewQuote">
+				<source>Create new Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.linkEditQuote">
+				<source>Edit this Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.btnSaveEdit">
+				<source>Save Quote</source>
+			</trans-unit>
+			
+			
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.t3quotes_selected">
+				<source>T3quotes Selected</source>
+			</trans-unit>
+			
+			
 			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">
 				<source>T3quotes Selected</source>
 			</trans-unit>
+			
 		</body>
 	</file>
 </xliff>

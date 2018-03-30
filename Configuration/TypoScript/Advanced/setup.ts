@@ -1,6 +1,6 @@
 
 plugin.tx_t3quotes_t3quotes {
-  view {
+  view {    
     templateRootPaths.0 = EXT:t3quotes/Resources/Private/Themes/Default/Templates/
     templateRootPaths.1 = {$plugin.tx_t3quotes_t3quotes.view.templateRootPath}
     partialRootPaths.0 = EXT:t3quotes/Resources/Private/Themes/Default/Partials/
@@ -17,6 +17,9 @@ plugin.tx_t3quotes_t3quotes {
   }
   mvc {
     #callDefaultActionIfActionCantBeResolved = 1
+  }
+  settings {
+	formatDate = {$plugin.tx_t3quotes_t3quotes.settings.formatDate}
   }
 }
 

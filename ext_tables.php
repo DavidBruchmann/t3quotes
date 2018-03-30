@@ -11,7 +11,8 @@ call_user_func(
             'T3Quotes'
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript', 'Quotes database');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript/Simple',   'Quotes simple Configuration');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript/Advanced', 'Quotes advanced Configuration');
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3quotes_domain_model_t3quotes', 'EXT:t3quotes/Resources/Private/Language/locallang_csh_tx_t3quotes_domain_model_t3quotes.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_t3quotes_domain_model_t3quotes');

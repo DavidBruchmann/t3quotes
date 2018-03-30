@@ -13,12 +13,75 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-	<f:debug>{_all}</f:debug>
-	<h1>Single View for T3quotes</h1>
-
+	
 	<f:flashMessages />
-	<f:render partial="T3quotes/Properties" arguments="{t3quote:t3quote}" />
-	<f:link.action action="list">Back to list</f:link.action><br />
-	<f:link.action action="new">New T3quotes</f:link.action>
+	<div class="tx-t3quotes-pi1-details">
+		<f:render section="T3quoteDetails" arguments="{t3quote:t3quote}" />
+	</div>
+	
+
+	<f:if condition="{settings.feFormEnabled}">
+		<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-editLink">
+			<hr/>
+			<f:link.action action="edit" arguments="{t3quote:t3quote}" class="linkButton"><f:translate key="tx_t3quotes_domain_model_t3quotes.linkEditQuote" /></f:link.action>
+		</div>
+		
+		<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-newLink">
+			<hr/>
+			<f:link.action action="new" additionalParams="{referer:'showview', referer_id:t3quote.uid}" class="linkButton"><f:translate key="tx_t3quotes_domain_model_t3quotes.linkNewQuote" /></f:link.action>
+		</div>
+	</f:if>
+	
+	<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-listLink">
+		<hr/>
+		<f:link.action action="list" additionalParams="{referer:'showview',referer_id:t3quote.uid}" class="linkButton"><f:translate key="tx_t3quotes_domain_model_t3quotes.linkBackToList" /></f:link.action>
+	</div>
+
 </f:section>
+
+<f:section name="T3quoteDetails">
+	<h2 class="tx-t3quotes-pi1-listrowField-quote"><f:format.nl2br>{t3quote.quote}</f:format.nl2br></h2>
+	<P class="tx-t3quotes-pi1-listrowField-author">
+		<f:if condition="{t3quote.date}">
+			<f:then>
+				<f:if condition="{settings.formatDate}">
+					<f:then><f:format.date format="{settings.formatDate}">{t3quote.date}</f:format.date></f:then>
+					<f:else><f:format.date format="d.m.Y">{t3quote.date}</f:format.date></f:else>
+				</f:if><f:if condition="{t3quote.authorName}">, <f:translate key="tx_t3quotes_domain_model_t3quotes.by" /></f:if>
+			</f:then>
+			<f:else><f:if condition="{t3quote.authorName}"><f:translate key="tx_t3quotes_domain_model_t3quotes.by" /></f:if></f:else>
+		</f:if>
+		<f:if condition="{t3quote.authstate}">
+			<f:then><f:render section="emailAuthstate" arguments="{t3quote: t3quote, settings: settings}"/></f:then>
+			<f:else>
+				<f:if condition="{settings.ignoreAuthState}">
+					<f:then><f:render section="emailAuthstate" arguments="{t3quote: t3quote, settings: settings}"/></f:then>
+					<f:else><f:render section="emailNoAuthstate" arguments="{t3quote: t3quote, settings: settings}"/></f:else>
+				</f:if>
+			</f:else>
+		</f:if>
+	</p>
+	<f:if condition="{t3quote.preface}"><p class="tx-t3quotes-pi1-listrowField-preface"><strong>Editors comment:</strong> <f:format.nl2br>{t3quote.preface}</f:format.nl2br></p></f:if>
+	<f:if condition="{t3quote.fullContext}"><p class="tx-t3quotes-pi1-listrowField-fullContext"><strong>Context:</strong> <f:format.nl2br>{t3quote.fullContext}</f:format.nl2br></p></f:if>
+</f:section>
+
+<f:section name="emailAuthstate">
+	<f:if condition="{t3quote.authorEmail}">
+		<f:then>
+			<f:if condition="{settings.disableDetailView}">
+				<f:then>{t3quote.authorName}<f:if condition="{t3quote.authorTitle}">, {t3quote.authorTitle}</f:if></f:then>
+				<f:else><f:link.email email="{t3quote.authorEmail}">{t3quote.authorName}<f:if condition="{t3quote.authorTitle}">, {t3quote.authorTitle}</f:if></f:link.email></f:else>
+			</f:if>
+		</f:then>
+		<f:else>{t3quote.authorName}<f:if condition="{t3quote.authorTitle}">, {t3quote.authorTitle}</f:if></f:else>
+	</f:if>
+</f:section>
+
+<f:section name="emailNoAuthstate">
+	<f:if condition="{t3quote.authorName}">
+		<f:then><f:if condition="{t3quote.authorName}">{t3quote.authorName}<f:if condition="{t3quote.authorTitle}">, {t3quote.authorTitle}</f:if></f:if></f:then>
+		<f:else>Unknown</f:else>
+	</f:if>
+</f:section>
+
 </html>

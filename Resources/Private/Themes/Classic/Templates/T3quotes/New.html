@@ -13,15 +13,21 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>New T3quotes</h1>
+<h1><f:translate key="tx_t3quotes_domain_model_t3quotes.headlineNewQuote" /></h1>
 
 <f:flashMessages />
 
 <f:render partial="FormErrors" arguments="{object:T3quotes}" />
 
-<f:form action="create"  name="newT3quotes" object="{newT3quotes}">
+<f:form action="create" name="newT3quotes" object="{newT3quotes}">
 <f:render partial="T3quotes/FormFields" />
-	<f:form.submit value="Create new" />
+	<div class="submit-container"><f:form.submit value="{f:translate(key:'tx_t3quotes_domain_model_t3quotes.btnCreateNewQuote')}" /></div>
 </f:form>
+
+
+<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-listLink">
+	<hr/>
+	<f:link.action action="list" additionalParams="{referer:'newview'}" class="linkButton"><f:translate key="tx_t3quotes_domain_model_t3quotes.linkBackToList" /></f:link.action>
+</div>
 </f:section>
 </html>

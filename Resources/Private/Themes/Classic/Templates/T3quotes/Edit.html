@@ -13,15 +13,28 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 <f:section name="main">
-<h1>Edit T3quotes</h1>
+	<h1>Edit Quote</h1>
 
-<f:flashMessages />
+	<f:flashMessages />
 
-<f:render partial="FormErrors" arguments="{object:T3quotes}" />
+	<f:render partial="FormErrors" arguments="{object:T3quotes}" />
 
-<f:form action="update" name="t3quotes" object="{t3quotes}" >
-<f:render partial="T3quotes/FormFields" arguments="{t3quotes:t3quotes}" />
-	<f:form.submit value="Save" />
-</f:form>
+	<f:form action="update" name="t3quotes" object="{t3quote}" >
+		<f:render partial="T3quotes/FormFields" arguments="{t3quote:t3quote}" />
+		<div class="submit-container"><f:form.submit value="{f:translate(key:'tx_t3quotes_domain_model_t3quotes.btnSaveEdit')}" /></div>
+	</f:form>
+	
+	<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-listLink">
+		<hr/>
+		<f:link.action action="list" additionalParams="{referer:'showview',referer_id:t3quote.uid}" class="linkButton"><f:translate key="tx_t3quotes_domain_model_t3quotes.linkBackToList" /></f:link.action>
+	</div>
+
+	<f:if condition="{settings.feFormEnabled}">
+		<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-newLink">
+			<hr/>
+			<f:link.action action="new" additionalParams="{referer:'showview',referer_id:t3quote.uid}" class="linkButton"><f:translate key="tx_t3quotes_domain_model_t3quotes.linkNewQuote" /></f:link.action>
+		</div>
+	</f:if>
+
 </f:section>
 </html>

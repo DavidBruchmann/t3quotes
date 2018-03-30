@@ -16,4 +16,7 @@ plugin.tx_t3quotes_t3quotes {
     # cat=plugin.tx_t3quotes_t3quotes//a; type=string; label=Default storage PID
     storagePid =
   }
+  settings {
+    formatDate = Y-m-d
+  }
 }
