@@ -10,7 +10,7 @@ The first two versions 0.1.1 and 0.1.2 have been developed and published by the 
 
 David Bruchmann is assigned as official maintainer of the extension t3quotes and therefore any issues, propositions and pull requests are at best reported on his [github-page](https://github.com/DavidBruchmann/t3quotes/).
 
-Usage for production servers is not yet advised.
+Usage for production servers is possible with version 2.0.1. even not all features and documentation are finished yet.
 
 features
 --------
@@ -25,6 +25,10 @@ installation
 ------------
 installation is currently only provided in the conventional way by extension-manager. Releases will be provided on the [releases-page](https://github.com/DavidBruchmann/t3quotes/releases) of the github-repository as well as on the so called "TER", the official [TYPO3-extension-website](https://extensions.typo3.org/extension/t3quotes/).
 Documentation will be provided in the folder `Documentation` of the extension and on the [wiki-site](https://github.com/DavidBruchmann/t3quotes/wiki).
+
+Usage is in general similar like any extension on base of extbase and a few profound differences are configured in the provided configuration files.  
+These configuration files have to be included in a backend-template and afterwards the constant-editor shows the corresponding options.  
+From two existing configurations only one has to be included, it was not tested what happens when both are included.
 
 current state of development
 ----------------------------
