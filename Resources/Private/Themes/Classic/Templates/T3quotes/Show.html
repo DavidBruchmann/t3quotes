@@ -80,7 +80,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 <f:section name="emailNoAuthstate">
 	<f:if condition="{t3quote.authorName}">
 		<f:then><f:if condition="{t3quote.authorName}">{t3quote.authorName}<f:if condition="{t3quote.authorTitle}">, {t3quote.authorTitle}</f:if></f:if></f:then>
-		<f:else>Unknown</f:else>
+		<f:else><f:translate key="tx_t3quotes_domain_model_t3quotes.authorUnknown" /></f:else>
 	</f:if>
 </f:section>
 

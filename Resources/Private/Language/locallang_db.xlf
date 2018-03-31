@@ -9,6 +9,12 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.ce-wizard.name">
 				<source>Quotes</source>
 			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.Title">
+				<source>Quotes Database</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
 				<source>A database with quotes which are displayed on the webpage in various ways.</source>
 			</trans-unit>
@@ -55,7 +61,7 @@
 				<source>Rotation quote (very short)</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
-				<source>Authenticated (show full name, email and title)</source>
+				<source>Author is authenticated (show full name, email and title)</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_ttcontent">
 				<source>Tt Content</source>

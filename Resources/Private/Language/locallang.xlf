@@ -6,6 +6,12 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
 				<source>T3Quotes</source>
 			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.Title">
+				<source>Quotes Database</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
 				<source>A database with quotes which are displayed on the webpage in various ways.</source>
 			</trans-unit>
@@ -14,6 +20,9 @@
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.preface">
 				<source>Preface</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.labelPreface">
+				<source>Editors comment</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.quote">
 				<source>Quote</source>
@@ -43,7 +52,7 @@
 				<source>Rotation Quote</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
-				<source>Authstate</source>
+				<source>Author is authenticated (show full name, email and title)</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
 				<source>Tt Content</source>
@@ -72,10 +81,38 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.btnSaveEdit">
 				<source>Save Quote</source>
 			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.headlineEditQuote">
+				<source>Edit Quote</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authorUnknown">
+				<source>Author unknown</source>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.persistence.defaultStoragePid">
+				<source>Default storage PID</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToThemesFE">
+				<source>Path to the themes (FE):The mainpath to the folder where all (used) themes with subfolders are included</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.formatDate">
+				<source>Date format:Date format, see https://docs.typo3.org/typo3cms/ExtbaseGuide/Fluid/ViewHelper/Format/Date.html for possible values</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.feFormEnabled">
+				<source>Enable frontend forms:Enable frontend forms for new quotes and editing</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.disableDetailView">
+				<source>Disable detail view:Don't show detail-view in frontend and hide corresponding links</source>
+			</trans-unit>
 			
 			
-			<trans-unit id="tx_t3quotes_domain_model_t3quotes.t3quotes_selected">
-				<source>T3quotes Selected</source>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToTemplateRootFE">
+				<source>Path to template root (FE)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToPartialsFE">
+				<source>Path to template partials (FE)</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToLayoutsFE">
+				<source>Path to template layouts (FE)</source>
 			</trans-unit>
 			
 			

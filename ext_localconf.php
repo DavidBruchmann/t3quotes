@@ -78,3 +78,9 @@ else
 if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3quotes_t3quotes'])) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3quotes_t3quotes'] = array();
 }
+
+// Deutsche Übersetzungen
+#$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:t3quotes/Resources/Private/Language/locallang.xlf'][] = 'EXT:t3quotes/Resources/Private/Language/de.locallang.xlf';
+#$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:t3quotes/Resources/Private/Language/locallang_csh_tx_t3quotes_domain_model_t3quotes.xlf'][] = 'EXT:t3quotes/Resources/Private/Language/de.locallang_csh_tx_t3quotes_domain_model_t3quotes.xlf';
+#$GLOBALS['TYPO3_CONF_VARS']['SYS']['locallangXMLOverride']['de']['EXT:t3quotes/Resources/Private/Language/locallang_db.xlf'][] = 'EXT:t3quotes/Resources/Private/Language/de.locallang_db.xlf';
+

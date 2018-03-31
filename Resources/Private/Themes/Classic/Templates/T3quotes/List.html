@@ -13,6 +13,13 @@ in /Configuration/ExtensionBuilder/settings.yaml:
 Otherwise your changes will be overwritten the next time you save the extension in the extension builder
 
 
+<f:comment>
+<!--
+<f:debug>{_all}</f:debug>
+-->
+</f:comment>
+
+
 <f:section name="emailAuthstate">
 	<f:if condition="{t3quote.authorEmail}">
 		<f:then>
@@ -70,7 +77,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</f:if>
 	</p>
 	<P class="tx-t3quotes-pi1-listrowField-quote"><f:format.nl2br>{t3quote.quote}</f:format.nl2br></P>
-	<f:if condition="{t3quote.preface}"><p class="tx-t3quotes-pi1-listrowField-preface"><strong>Editors comment:</strong> <f:format.nl2br>{t3quote.preface}</f:format.nl2br></p></f:if>
+	<f:if condition="{t3quote.preface}"><p class="tx-t3quotes-pi1-listrowField-preface"><strong><f:translate key="tx_t3quotes_domain_model_t3quotes.labelPreface" /></strong> <f:format.nl2br>{t3quote.preface}</f:format.nl2br></p></f:if>
 </f:section>
 
 <f:section name="main">
@@ -92,8 +99,6 @@ Otherwise your changes will be overwritten the next time you save the extension 
 		</f:for>
 	</div>
 
-	<f:debug>{_all}</f:debug>
-
 	<f:if condition="{settings.feFormEnabled}">
 		<div class="tx-t3quotes-pi1-link tx-t3quotes-pi1-newLink">
 			<hr/>
@@ -102,50 +107,5 @@ Otherwise your changes will be overwritten the next time you save the extension 
 	</f:if>
 	
 </f:section>
-
-<f:comment>
-	<!--
-	<h1>Listing for T3quotes</h1>
-
-	<f:flashMessages />
-
-	<table  class="tx_t3quotes" >
-		<tr>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.preface" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.quote" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.full_context" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.author_name" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.author_email" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.author_title" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.weight" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.date" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.selected" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.rotation_quote" /></th>
-			<th><f:translate key="tx_t3quotes_domain_model_t3quotes.authstate" /></th>
-			<th> </th>
-			<th> </th>
-		</tr>
-
-		<f:for each="{t3quotes}" as="t3quote">
-			<tr>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.preface}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.quote}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.fullContext}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.authorName}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.authorEmail}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.authorTitle}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.weight}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.date -> f:format.date()}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.selected}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.rotationQuote}</f:link.action></td>
-				<td><f:link.action action="show" arguments="{t3quote : t3quote}"> {t3quote.authstate}</f:link.action></td>
-				<td><f:link.action action="edit" arguments="{t3quote : t3quote}">Edit</f:link.action></td>
-				<td><f:link.action action="delete" arguments="{t3quote : t3quote}">Delete</f:link.action></td>
-			</tr>
-		</f:for>
-	</table>
-	-->
-</f:comment>
-
 
 </html>
