@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-03-26T01:28:36Z" product-name="t3quotes">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3Quotes</source>
+				<target state="translated">T3Quotes</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.ce-wizard.name">
+				<source>Quotes</source>
+				<target state="translated">Zitate</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.Title">
+				<source>Quotes Database</source>
+				<target state="translated">Zitate-Datenbank</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+				<target state="translated">Eine Datenbank mit Zitaten, die auf vielfache Weise auf der Webseite angezeigt werden können.</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+				<target state="translated">Eine Datenbank mit Zitaten, die auf vielfache Weise auf der Webseite angezeigt werden können.</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.ce-wizard.description">
+				<source>Display collection of quotes on the webpage.</source>
+				<target state="translated">Zeige Zitatsammlung auf der Webseite an.</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.preface">
+				<source>Preface</source>
+				<target state="translated">Einleitung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.quote">
+				<source>Quote</source>
+				<target state="translated">Zitat</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.full_context">
+				<source>Full Context</source>
+				<target state="translated">Zusammenhang</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_name">
+				<source>Author Name</source>
+				<target state="translated">Name des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_email">
+				<source>Author Email</source>
+				<target state="translated">Email des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_title">
+				<source>Author Title</source>
+				<target state="translated">Titel des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight">
+				<source>Sorting Weight</source>
+				<target state="translated">Gewichtung zum Sortieren</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.0">
+				<source>High priority</source>
+				<target state="translated">Hohe Priorität</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.1">
+				<source>Normal priority</source>
+				<target state="translated">Normale Priorität</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.2">
+				<source>Low priority</source>
+				<target state="translated">Niedrige Priorität</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.date">
+				<source>Date</source>
+				<target state="translated">Datum</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.selected">
+				<source>Selected</source>
+				<target state="translated">Ausgewählt</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.rotation_quote">
+				<source>Rotation Quote (very short)</source>
+				<target state="translated">Rotations-Zitat (sehr kurz)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
+				<source>Author is authenticated (show full name, email and title)</source>
+				<target state="translated">Autor ist authentifiziert (zeige kompletten Namen, E-Mail und Titel)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent">
+				<source>Tt Content</source>
+				<target state="translated">Tt Content</target>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">
+				<source>Show selected quotes only</source>
+				<target state="translated">Zeige nur ausgewählte Zitate an</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

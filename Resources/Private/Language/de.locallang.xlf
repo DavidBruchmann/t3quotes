@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-03-26T01:28:36Z" product-name="t3quotes">
+		<header/>
+		<body>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes">
+				<source>T3Quotes</source>
+				<target state="translated">T3Quotes</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.Title">
+				<source>Quotes Database</source>
+				<target state="translated">Zitate-Datenbank</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.extension.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+				<target state="translated">Eine Datenbank mit Zitaten, die auf vielfache Weise auf der Webseite angezeigt werden können.</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.description">
+				<source>A database with quotes which are displayed on the webpage in various ways.</source>
+				<target state="translated">Eine Datenbank mit Zitaten, die auf vielfache Weise auf der Webseite angezeigt werden können.</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.ce-wizard.description">
+				<source>Display collection of quotes on the webpage.</source>
+				<target state="translated">Zeige Zitatsammlung auf der Webseite an.</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.preface">
+				<source>Preface</source>
+				<target state="translated">Einleitung</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.labelPreface">
+				<source>Editors comment</source>
+				<target state="translated">Kommentar des Redakteurs</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.quote">
+				<source>Quote</source>
+				<target state="translated">Zitat</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.full_context">
+				<source>Full Context</source>
+				<target state="translated">Zusammenhang</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_name">
+				<source>Author Name</source>
+				<target state="translated">Name des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_email">
+				<source>Author Email</source>
+				<target state="translated">Email des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.author_title">
+				<source>Author Title</source>
+				<target state="translated">Titel des Autors</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight">
+				<source>Sorting Weight</source>
+				<target state="translated">Gewichtung zum Sortieren</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.0">
+				<source>High priority</source>
+				<target state="translated">Hohe Priorität</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.1">
+				<source>Normal priority</source>
+				<target state="translated">Normale Priorität</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.weight.I.2">
+				<source>Low priority</source>
+				<target state="translated">Niedrige Priorität</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.date">
+				<source>Date</source>
+				<target state="translated">Datum</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.selected">
+				<source>Selected</source>
+				<target state="translated">Ausgewählt</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.rotation_quote">
+				<source>Rotation Quote (very short)</source>
+				<target state="translated">Rotations-Zitat (sehr kurz)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authstate">
+				<source>Author is authenticated (show full name, email and title)</source>
+				<target state="translated">Autor ist authentifiziert (zeige kompletten Namen, E-Mail und Titel)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent">
+				<source>Tt Content</source>
+				<target state="translated">Tt Content</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.t3quotes_selected">
+				<source>T3quotes Selected</source>
+				<target state="translated">Zeige nur ausgewählte Zitate an</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.by">
+				<source>by</source>
+				<target state="translated">von</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.linkBackToList">
+				<source>Back to List</source>
+				<target state="translated">Zurück zur Liste</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.btnCreateNewQuote">
+				<source>Save this new Quote</source>
+				<target state="translated">Neues Zitat Speichern</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.headlineNewQuote">
+				<source>New Quote</source>
+				<target state="translated">Neues Zitat</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.linkNewQuote">
+				<source>Create new Quote</source>
+				<target state="translated">Neues Zitat erstellen</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.linkEditQuote">
+				<source>Edit this Quote</source>
+				<target state="translated">Dieses Zitat bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.btnSaveEdit">
+				<source>Save Quote</source>
+				<target state="translated">Zitat speichern</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.headlineEditQuote">
+				<source>Edit Quote</source>
+				<target state="translated">Zitat bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.authorUnknown">
+				<source>Author unknown</source>
+				<target state="translated">Auto unbekannt</target>
+			</trans-unit>
+			
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.persistence.defaultStoragePid">
+				<source>Default storage PID</source>
+				<target state="translated">PID der Seite zum Speichern der Zitate</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToThemesFE">
+				<source>Path to the themes (FE):The mainpath to the folder where all (used) themes with subfolders are included</source>
+				<target state="translated">Pfad zu den 'Themes' (FE):Der Hauptpfad zum Ordner wo alle Themes mit Unterordnern gespeichert sind</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.formatDate">
+				<source>Date format:Date format, see https://docs.typo3.org/typo3cms/ExtbaseGuide/Fluid/ViewHelper/Format/Date.html for possible values</source>
+				<target state="translated">Datumsformat:Datumsformat, siehe https://docs.typo3.org/typo3cms/ExtbaseGuide/Fluid/ViewHelper/Format/Date.html für mögliche Werte</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.feFormEnabled">
+				<source>Enable frontend forms:Enable frontend forms for new quotes and editing</source>
+				<target state="translated">Aktiviere Frontend-Formulare:Aktiviere Frontend-Formulare zur Neuerstellung und zum Bearbeiten von Zitaten</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.disableDetailView">
+				<source>Disable detail view:Don't show detail-view in frontend and corresponding links</source>
+				<target state="translated">Deaktiviere Detailansicht:Deaktiviere Detailansicht und entsprechende Verlinkung</target>
+			</trans-unit>
+			
+			
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToTemplateRootFE">
+				<source>Path to template root (FE)</source>
+				<target state="translated">Pfad zum Wurzelverzeichnis der Templates (FE)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToPartialsFE">
+				<source>Path to template partials (FE)</source>
+				<target state="translated">Pfad zu den Partials (FE)</target>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToLayoutsFE">
+				<source>Path to template layouts (FE)</source>
+				<target state="translated">Pfad zu den Layouts (FE)</target>
+			</trans-unit>
+			
+			
+			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">
+				<source>Show selected quotes only</source>
+				<target state="translated">Zeige nur ausgewählte Zitate an</target>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>
