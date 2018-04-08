@@ -169,7 +169,8 @@ plugin.tx_t3quotes._CSS_DEFAULT_STYLE (
     .tx-t3quotes-pi1.tx-t3quotes-theme-classic textarea,
     .tx-t3quotes-pi1.tx-t3quotes-theme-classic input[type=text],
     .tx-t3quotes-pi1.tx-t3quotes-theme-classic input[type=radio],
-    .tx-t3quotes-pi1.tx-t3quotes-theme-classic input[type=checkbox] {
+    .tx-t3quotes-pi1.tx-t3quotes-theme-classic input[type=checkbox],
+    .tx-t3quotes-pi1.tx-t3quotes-theme-classic select {
 		margin-bottom:1em;
     }
     .tx-t3quotes-pi1.tx-t3quotes-theme-classic textarea,

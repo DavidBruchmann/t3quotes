@@ -1,46 +1,62 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:debug>{_all}</f:debug>
+
+<label for="uid">
+	<f:translate key="tx_t3quotes_domain_model_t3quotes.uid" /> {t3quote.uid}
+
 <label for="preface">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.preface" />
 </label><br />
-	<f:form.textarea property="preface" cols="40" rows="15" /><br />
+	<f:form.textarea name="tx_t3quotes_t3quotes[t3quote][preface]" property="preface" cols="40" rows="15" /><br />
+
 <label for="quote">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.quote" />
 </label><br />
-	<f:form.textarea property="quote" cols="40" rows="15" /><br />
+	<f:form.textarea name="tx_t3quotes_t3quotes[t3quote][quote]" property="quote" cols="40" rows="15" /><br />
+
 <label for="fullContext">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.full_context" />
 </label><br />
-	<f:form.textarea property="fullContext" cols="40" rows="15" /><br />
+	<f:form.textarea name="tx_t3quotes_t3quotes[t3quote][fullContext]" property="fullContext" cols="40" rows="15" /><br />
+
 <label for="authorName">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.author_name" />
 </label><br />
-	<f:form.textfield property="authorName" /><br />
+	<f:form.textfield name="tx_t3quotes_t3quotes[t3quote][authorName]" property="authorName" /><br />
+
 <label for="authorEmail">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.author_email" />
 </label><br />
-	<f:form.textfield property="authorEmail" /><br />
+	<f:form.textfield name="tx_t3quotes_t3quotes[t3quote][authorEmail]" property="authorEmail" /><br />
+
 <label for="authorTitle">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.author_title" />
 </label><br />
-	<f:form.textfield property="authorTitle" /><br />
+	<f:form.textfield name="tx_t3quotes_t3quotes[t3quote][authorTitle]" property="authorTitle" /><br />
+
 <label for="weight">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.weight" />
 </label><br />
-	<f:form.textfield property="weight" /><br />
-<label for="date">
+	<f:comment><f:form.textfield property="weight" /><br /></f:comment>
+	<f:form.select name="tx_t3quotes_t3quotes[t3quote][weight]" property="weight" options="{t3quote.weights}" optionValueField="key" optionLabelField="value" /><br />
+
+<label for="date"> 
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.date" />
 </label><br />
-	<f:form.textfield property="date" value="{t3quotes.date->f:format.date()}" /><br />
+	<f:form.textfield name="tx_t3quotes_t3quotes[t3quote][date]" property="date" value="{t3quote.date->f:format.date(format: 'Y-m-d')}" /><br />
+
 <label for="selected">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.selected" />
 </label><br />
-	<f:form.checkbox property="selected" value="1" /><br />
+	<f:form.checkbox name="tx_t3quotes_t3quotes[t3quote][selected]" property="selected" value="1" /><br />
+
 <label for="rotationQuote">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.rotation_quote" />
 </label><br />
-	<f:form.textfield property="rotationQuote" /><br />
+	<f:form.textfield name="tx_t3quotes_t3quotes[t3quote][rotationQuote]" property="rotationQuote" /><br />
+
 <label for="authstate">
 	<f:translate key="tx_t3quotes_domain_model_t3quotes.authstate" />
 </label><br />
-	<f:form.checkbox property="authstate" value="1" /><br />
+	<f:form.checkbox name="tx_t3quotes_t3quotes[t3quote][authstate]" property="authstate" value="1" /><br />
 </html>

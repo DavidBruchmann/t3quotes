@@ -258,7 +258,7 @@ class T3quotes extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param \DateTime $date
      * @return void
      */
-    public function setDate(\DateTime $date)
+    public function setDate(\DateTime $date=NULL)
     {
         $this->date = $date;
     }
@@ -345,4 +345,5 @@ class T3quotes extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->authstate;
     }
+    
 }

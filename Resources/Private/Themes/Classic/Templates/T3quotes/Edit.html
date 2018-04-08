@@ -19,7 +19,7 @@ Otherwise your changes will be overwritten the next time you save the extension 
 
 	<f:render partial="FormErrors" arguments="{object:T3quotes}" />
 
-	<f:form action="update" name="t3quotes" object="{t3quote}" >
+	<f:form action="update" name="t3quote" object="{t3quote}" >
 		<f:render partial="T3quotes/FormFields" arguments="{t3quote:t3quote}" />
 		<div class="submit-container"><f:form.submit value="{f:translate(key:'tx_t3quotes_domain_model_t3quotes.btnSaveEdit')}" /></div>
 	</f:form>

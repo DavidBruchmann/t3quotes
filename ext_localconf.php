@@ -16,6 +16,8 @@ function configureT3quotesPlugin()
 function configureT3quotesWizards($v='')
 {
 	if($v === 'v7'){
+		// # Breaking #80700 Deprecated functionality removed (9.0)
+		// # Breaking Deprecation: #78193 - ExtensionManagementUtility::extRelPath() (8.4)
 		$icon = 'icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3quotes') . 'Resources/Public/Icons/user_plugin_t3quotes.svg';
 	}
 	elseif($v === 'v8+'){

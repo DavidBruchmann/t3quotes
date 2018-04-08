@@ -1,6 +1,8 @@
 <?php
 namespace WDB\T3quotes\Tests\Unit\Controller;
 
+// For testing extbase-based extensions, your testcases need to extend Tx_Extbase_Tests_Unit_BaseTestCase instead of Tx_Phpunit_TestCase.
+
 /**
  * Test case.
  *

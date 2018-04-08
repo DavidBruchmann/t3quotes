@@ -1,8 +1,11 @@
 <?php
-return [
+
+$tx_t3quotes_domain_model_t3quotes = [
     'ctrl' => [
         'title'	=> 'LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes',
-        'label' => 'preface',
+        'label' => 'author_name',
+        'label_alt' => 'author_title,quote',
+        'label_alt_force' => TRUE,
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
@@ -85,19 +88,24 @@ return [
         ],
 		'starttime' => [
             'exclude' => true,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
+			'l10n_display' => 'defaultAsReadonly',
+			'l10n_mode' => 'exclude',
             'config' => [
-                'type' => 'input',
+                'type' => 'input',				  
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
+                'range' => [
+                    'upper' => mktime(0, 0, 0, 1, 1, 2038)
+                ]
             ]
         ],
         'endtime' => [
             'exclude' => true,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
+			'l10n_display' => 'defaultAsReadonly',
+			'l10n_mode' => 'exclude',
             'config' => [
                 'type' => 'input',
                 'size' => 13,
@@ -230,3 +238,46 @@ return [
 	    ],
     ],
 ];
+
+$t3Version = TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
+
+// @see https://docs.typo3.org/typo3cms/extensions/core/Changelog/8.6/Breaking-79243-RemoveL10n_modeMergeIfNotBlank.html
+// @see https://docs.typo3.org/typo3cms/extensions/core/Changelog/8.6/Deprecation-79440-TcaChanges.html
+if(version_compare($t3Version, '8.6.0', '<')){
+	$tx_t3quotes_domain_model_t3quotes['columns']['starttime']['l10n_mode'] = 'mergeIfNotBlank';
+	$tx_t3quotes_domain_model_t3quotes['columns']['endtime']  ['l10n_mode'] = 'mergeIfNotBlank';
+	# $tx_t3quotes_domain_model_t3quotes['columns']['date']     ['l10n_mode'] = 'mergeIfNotBlank';
+}
+else
+{
+	$tx_t3quotes_domain_model_t3quotes['columns']['starttime']['config']['behaviour']['allowLanguageSynchronization'] = true;
+	$tx_t3quotes_domain_model_t3quotes['columns']['endtime']  ['config']['behaviour']['allowLanguageSynchronization'] = true;
+
+	// @ see https://docs.typo3.org/typo3cms/extensions/core/Changelog/8.6/Deprecation-79440-TcaChanges.html#type-list
+	$tmpStarttime = array(
+		'config' => array(
+			'type' => 'input',
+			'renderType' => 'inputDateTime',
+			'eval' => 'datetime',            // date | time | datetime | timesec
+			'default' => 0,
+			'range' => [
+				'upper' => mktime(0, 0, 0, 1, 1, 2038)
+			]
+		),
+		'exclude' => 1,
+		'l10n_display' => 'defaultAsReadonly',
+		'l10n_mode' => 'exclude',
+		'label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_general.xlf:LGL.starttime'
+	);
+
+	$tx_t3quotes_domain_model_t3quotes['columns']['starttime'] = $tmpStarttime;
+
+	$tx_t3quotes_domain_model_t3quotes['columns']['endtime']  ['config']['renderType'] = 'inputDateTime';
+	$tx_t3quotes_domain_model_t3quotes['columns']['endtime']  ['config']['eval']       = 'datetime';       // date | time | datetime | timesec
+
+	$tx_t3quotes_domain_model_t3quotes['columns']['date']     ['config']['renderType'] = 'inputDateTime';
+	$tx_t3quotes_domain_model_t3quotes['columns']['date']     ['config']['dbType']     = 'date';           // date | time | datetime | timesec
+	$tx_t3quotes_domain_model_t3quotes['columns']['date']     ['config']['eval']       = 'date';           // date | time | datetime | timesec
+}
+
+return $tx_t3quotes_domain_model_t3quotes;

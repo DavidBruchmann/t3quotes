@@ -16,6 +16,7 @@ namespace WDB\T3quotes\Controller;
 
 /**
  * T3quotesController
+ *                 
  */
 class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
@@ -44,10 +45,11 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 //		#$cache->setCacheConfigurations( $cacheConfigurations[$cacheIdentifier]['frontend'] );
 		
 		// $this->configuration consists of interpreted typoscript-setup for this extension
-		// $this->configuration['view'] is not yet parsed / interpreted
+		// $this->configuration['view'] is not yet parsed / interpreted at this point
 		$this->configuration = $this->configurationManager->getConfiguration( $this->configurationManager::CONFIGURATION_TYPE_FRAMEWORK );
+		// TODO: nice error-message if $this->configuration['view'] is not found (means no template included)
         $typoScriptService = $this->objectManager->get(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
-        $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray($this->configuration['view']);
+        $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray( $this->configuration['view'] );
         
 		// Adding Version Information to use in Templates
 		$typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version();
@@ -110,7 +112,11 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 	'$cacheIdentifier' => $cacheIdentifier,
 	'$flatSetup' => $flatSetup,
 	'$this->configuration' => $this->configuration,
-	#'$tsConfigFlat' => $tsConfigFlat
+	#'$tsConfigFlat' => $tsConfigFlat,
+	'$this->request->getArguments()' => $this->request->getArguments(),
+	'$_GET' => $_GET,
+	'$_POST' => $_POST,
+	'_GP' => \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_t3quotes_t3quotes'),
 ));
 */
 	}
@@ -168,8 +174,24 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
 		$t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
 		$t3quote->setDate(new \DateTime('now'));
+        $t3quote->weights = $this->getWeights();
 		$this->view->assign('t3quote', $t3quote);
     }
+    
+    public function getWeights()
+    {
+		$weights = array();
+		$options = array('100', '0', '-100');
+		foreach ($options as $count => $option) {
+			$weight = []; // new \stdClass();
+			$weight['key'] = $option;
+			$weight['value'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.'.$count, 't3quotes');
+			$weights[] = $weight;
+		}
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array('method' => __METHOD__,'$weights'=>$weights));
+		return $weights;
+		
+	}
     
     public function initializeCreateAction()
     {
@@ -204,10 +226,40 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function createAction(\WDB\T3quotes\Domain\Model\T3quotes $newT3quotes)
     {
-        $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        # $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        
         $this->t3quotesRepository->add($newT3quotes);
         $this->redirect('list');
     }
+
+
+    public function initializeEditAction()
+    {
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
+			'method' => __METHOD__.':'.__LINE__,
+			'$this->arguments' => $this->arguments,
+			'$this'=>$this,
+			'$this->quotes'=>$this->quotes
+		));
+		
+		$this->arguments['t3quote']
+			->getPropertyMappingConfiguration()
+			->forProperty('date')
+			->setTypeConverterOption(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+			);
+		$this->arguments['t3quote']
+			->getPropertyMappingConfiguration()
+			->forProperty('weight')
+			->setTypeConverterOption(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
+				'', ''
+				#\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+			);
+	}
+
+
 
     /**
      * action edit
@@ -218,32 +270,70 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function editAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
     {
+        $t3quote->weights = $this->getWeights();
+\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
+	'method' => __METHOD__.':'.__LINE__,
+	'$t3quote' => $t3quote
+));
         $this->view->assign('t3quote', $t3quote);
+#		$this->view->assign('t3quote'->weights, );
     }
 
+    public function initializeUpdateAction()
+    {
+		\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
+			'method' => __METHOD__.':'.__LINE__,
+			'$this->arguments' => $this->arguments,
+			'$this->quote'=>$this->quote,
+			'$this->quotes'=>$this->quotes
+		));
+		// for validation of date
+		$this->arguments['t3quote']
+			->getPropertyMappingConfiguration()
+			->forProperty('date')
+			->setTypeConverterOption(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
+				\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+			);
+		// for validation of weight
+		$this->arguments['t3quote']
+			->getPropertyMappingConfiguration()
+			->forProperty('weight')
+			->setTypeConverterOption(
+				'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
+				'', ''
+				#\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+			);
+	}
+	
     /**
      * action update
      *
-     * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quotes
+     * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
      * @return void
      */
-    public function updateAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quotes)
+    public function updateAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
     {
-        $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->t3quotesRepository->update($t3quotes);
-        $this->redirect('list');
+        # $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        
+		# $t3quote->setDate(new \DateTime( $t3quotes->getDate() ));
+        $this->t3quotesRepository->update($t3quote);
+        #$this->redirect('list');
+        #$this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
+		$this->view->assign('t3quote', $t3quote);
     }
 
     /**
      * action delete
      *
-     * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quotes
+     * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
      * @return void
      */
-    public function deleteAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quotes)
+    public function deleteAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
     {
-        $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        $this->t3quotesRepository->remove($t3quotes);
+        # $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        
+        $this->t3quotesRepository->remove($t3quote);
         $this->redirect('list');
     }
 	

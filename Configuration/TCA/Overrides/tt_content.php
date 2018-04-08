@@ -22,6 +22,7 @@ $temporaryColumns = [
         $temporaryColumns
 );
 
+// types.list.showitem
 $tmpShowItem = $GLOBALS['TCA']['tt_content']['types']['list']['showitem'];
 $tmpArray = explode(',',$tmpShowItem);
 $newTmpArray = [];
@@ -34,14 +35,18 @@ foreach($tmpArray as $count => $item){
 }
 $GLOBALS['TCA']['tt_content']['types']['list']['showitem'] = implode(',',$newTmpArray);
 
-
+// interface.showRecordFieldList
 $GLOBALS['TCA']['tt_content']['interface']['showRecordFieldList'] .= ',t3quotes_selected';
 
-# $TCA["tt_content"]["types"]["list"]["subtypes_excludelist"][$_EXTKEY."_pi1"]="layout,select_key";
-# $TCA["tt_content"]["types"]["list"]["subtypes_addlist"][$_EXTKEY."_pi1"]="tx_t3quotes_selected;;;;1-1-1";
+// @TODO: any usage for this:?
+# $TCA["tt_content"]["types"]["list"]["subtypes_excludelist"][$_EXTKEY."_pi1"] = "layout,select_key";
+# $TCA["tt_content"]["types"]["list"]["subtypes_addlist"]    [$_EXTKEY."_pi1"] = "tx_t3quotes_selected;;;;1-1-1";
 
 $t3Version = TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
+
 // field select_key exists only in 7.x
+// @TODO: removing in version 7 too?
+//        ... else see TODO below
 if(version_compare($t3Version, '8.0.0', '<'))
 {
 	$newDisplaycond = 'FIELD:list_type:!=:t3quotes_t3quotes';
@@ -62,11 +67,3 @@ if(version_compare($t3Version, '8.0.0', '<'))
 	}
 	*/
 }
-
-
-
-
-
-
-
-

@@ -77,11 +77,12 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         
         
         $t3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
+        // # Breaking #80700 - Deprecated functionality removed (9.0)
+        // # Breaking #77460 - Extbase query cache removed (8.3)
 		if(version_compare($t3Version, '9.0.0', '<'))
 		{
 			$querySettings->useQueryCache(FALSE);
 		}
-        
         
 /*
 \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
@@ -99,5 +100,25 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $result = $query->execute();
         # \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(''method' => __METHOD__,$query'=>$query,'$result'=>$result)); //->persistenceManager
         return $result;
+    }
+    
+    
+
+    /**
+     * Replaces an existing object with the same identifier by the given object
+     *
+     * @param object $modifiedObject The modified object
+     * @throws Exception\UnknownObjectException
+     * @throws Exception\IllegalObjectTypeException
+     * @return void
+     * @api
+     */
+    public function update($modifiedObject)
+    {
+        if (!$modifiedObject instanceof $this->objectType) {
+            throw new \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException('The modified object given to update() was not of the type (' . $this->objectType . ') this repository manages.', 1249479625);
+        }
+        $this->persistenceManager->update($modifiedObject);
+        $this->persistenceManager->persistAll();
     }
 }
