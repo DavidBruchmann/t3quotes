@@ -31,4 +31,4 @@ finder:
     - "*.php"
   not-path:
     - ".Build"
-- "Documentation"
+    - "Documentation"
