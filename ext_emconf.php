@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Quotes database',
-    'description' => 'A database with quotes which are displayed on the webpage in various ways.',
+    'description' => 'A database with quotes which are displayed on the webpage in various ways, based on extbase & fluid for TYPO3 CMS.',
     'category' => 'plugin',
     'author' => 'Kasper Skårhøj (2002), David Bruchmann (2018)',
     'author_email' => 'kasper@typo3.com, david.bruchmann@gmail.com',
@@ -21,7 +21,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => '0',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '2.0.2',
+    'version' => '2.0.4',
     'constraints' => [
         'depends' => [
             'typo3' => '7.6.0-9.1.99',
