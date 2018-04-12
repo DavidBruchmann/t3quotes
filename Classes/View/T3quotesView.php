@@ -103,7 +103,7 @@ class T3quotesView extends \TYPO3\CMS\Fluid\View\StandaloneView
     public function hasTemplate()
     {
         if ($this->templateSource === null) {
-            if($this->templatePathAndFilename === null) {
+            if ($this->templatePathAndFilename === null) {
                 return false;
             }
             $resolvedFileNamePath = $this->resolveFileNamePath($this->templatePathAndFilename);

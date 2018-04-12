@@ -19,7 +19,7 @@ function configureT3quotesWizards($v='')
         // # Breaking #80700 Deprecated functionality removed (9.0)
         // # Breaking Deprecation: #78193 - ExtensionManagementUtility::extRelPath() (8.4)
         $icon = 'icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3quotes') . 'Resources/Public/Icons/user_plugin_t3quotes.svg';
-    } elseif($v === 'v8+') {
+    } elseif ($v === 'v8+') {
         $icon = 'iconIdentifier = t3quotes-plugin-t3quotes';
     }
 
@@ -56,11 +56,10 @@ function addT3quotesIconToRegistry()
 
 $t3Version = TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(TYPO3_version);
 if (version_compare($t3Version, '8.0.0', '<')) {
-    call_user_func(function ()
-    {
+    call_user_func(function () {
         configureT3quotesPlugin();
         configureT3quotesWizards('v7');
-        // addT3quotesIconToRegistry();
+    //  addT3quotesIconToRegistry();
     },$_EXTKEY);
 } else {
     call_user_func(function () {

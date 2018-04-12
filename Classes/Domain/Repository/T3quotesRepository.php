@@ -47,10 +47,10 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // TODO:
         $querySettings->setStoragePageIds([2]);
 
-            // don't add fields from enablecolumns constraint
-            // this function is deprecated!
-            // not existing in version 8.7.10
-            // setRespectEnableFields(FALSE);
+		//     don't add fields from enablecolumns constraint
+		//     this function is deprecated!
+		//     not existing in version 8.7.10
+		//     setRespectEnableFields(FALSE);
 
         // define the enablecolumn fields to be ignored
         // if nothing else is given, all enableFields are ignored
@@ -76,10 +76,10 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // $querySettings->setUsePreparedStatement();
 
 
-        $t3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
+        $t3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(TYPO3_version);
         // // Breaking //80700 - Deprecated functionality removed (9.0)
         // // Breaking //77460 - Extbase query cache removed (8.3)
-        if(version_compare($t3Version, '9.0.0', '<')) {
+        if (version_compare($t3Version, '9.0.0', '<')) {
             $querySettings->useQueryCache(false);
         }
 
