@@ -80,15 +80,16 @@ class T3quotesView extends \TYPO3\CMS\Fluid\View\StandaloneView
         }
         $resolvedFileNamePath = $this->resolveFileNamePath($this->templatePathAndFilename);
         if ($this->templateSource === null) {
-            if (!$this->testFileExistence( $resolvedFileNamePath )) {
+            if (!$this->testFileExistence($resolvedFileNamePath)) {
                 throw new \TYPO3\CMS\Fluid\View\Exception\InvalidTemplateResourceException('Template could not be found at "' . $this->templatePathAndFilename . '".', 1288087061);
             }
-            $this->templateSource = file_get_contents( $resolvedFileNamePath );
+            $this->templateSource = file_get_contents($resolvedFileNamePath);
         }
         return $this->templateSource;
     }
 
-    public function getTemplateSourcePublic($actionName = null){
+    public function getTemplateSourcePublic($actionName = null)
+    {
         return $this->getTemplateSource($actionName);
     }
 
@@ -101,20 +102,17 @@ class T3quotesView extends \TYPO3\CMS\Fluid\View\StandaloneView
      */
     public function hasTemplate()
     {
-        if ($this->templateSource === null)
-        {
-            if($this->templatePathAndFilename === null)
-            {
-                return FALSE;
+        if ($this->templateSource === null) {
+            if($this->templatePathAndFilename === null) {
+                return false;
             }
             $resolvedFileNamePath = $this->resolveFileNamePath($this->templatePathAndFilename);
-            if ($this->testFileExistence($resolvedFileNamePath) && file_get_contents($resolvedFileNamePath))
-            {
-                return TRUE;
+            if ($this->testFileExistence($resolvedFileNamePath) && file_get_contents($resolvedFileNamePath)) {
+                return true;
             }
         }
         // TEST for string-length of templateSource?
-        return $this->templateSource !== FALSE && $this->templateSource !== NULL ? TRUE : FALSE;
+        return $this->templateSource !== false && $this->templateSource !== null ? true : false;
     }
 
     /**

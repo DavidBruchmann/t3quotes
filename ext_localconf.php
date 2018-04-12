@@ -15,15 +15,14 @@ function configureT3quotesPlugin()
 
 function configureT3quotesWizards($v='')
 {
-    if($v === 'v7'){
+    if ($v === 'v7') {
         // # Breaking #80700 Deprecated functionality removed (9.0)
         // # Breaking Deprecation: #78193 - ExtensionManagementUtility::extRelPath() (8.4)
         $icon = 'icon = ' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('t3quotes') . 'Resources/Public/Icons/user_plugin_t3quotes.svg';
-    }
-    elseif($v === 'v8+'){
+    } elseif($v === 'v8+') {
         $icon = 'iconIdentifier = t3quotes-plugin-t3quotes';
     }
-    
+
     // wizards
     \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
     'mod {
@@ -55,26 +54,21 @@ function addT3quotesIconToRegistry()
     );
 }
 
-$t3Version = TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
-if(version_compare($t3Version, '8.0.0', '<'))
-{
-    call_user_func(function()
+$t3Version = TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(TYPO3_version);
+if (version_compare($t3Version, '8.0.0', '<')) {
+    call_user_func(function ()
     {
         configureT3quotesPlugin();
         configureT3quotesWizards('v7');
         // addT3quotesIconToRegistry();
     },$_EXTKEY);
-}
-else
-{
-    call_user_func(function()
-    {
+} else {
+    call_user_func(function () {
         configureT3quotesPlugin();
         configureT3quotesWizards('v8+');
         addT3quotesIconToRegistry();
     });
 }
-
 
 // cache for storing typoscript-constants
 if (!is_array($GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['t3quotes_t3quotes'])) {

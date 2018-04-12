@@ -46,10 +46,11 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // $this->configuration consists of interpreted typoscript-setup for this extension
         // $this->configuration['view'] is not yet parsed / interpreted at this point
-        $this->configuration = $this->configurationManager->getConfiguration( $this->configurationManager::CONFIGURATION_TYPE_FRAMEWORK );
+        $this->configuration = $this->configurationManager->getConfiguration($this->configurationManager::CONFIGURATION_TYPE_FRAMEWORK);
+
         // TODO: nice error-message if $this->configuration['view'] is not found (means no template included)
         $typoScriptService = $this->objectManager->get(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
-        $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray( $this->configuration['view'] );
+        $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray($this->configuration['view']);
 
         // Adding Version Information to use in Templates
         $typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version();
@@ -60,7 +61,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // storing flatSetup in cache if existing
         // or retrieving flatSetup from cache if not existing
         $flatSetup = $GLOBALS['TSFE']->tmpl->flatSetup;
-        if(is_array($flatSetup) && count($flatSetup)) {    
+        if(is_array($flatSetup) && count($flatSetup)) {
             // saving $flatSetup in cache
             $tsConfigFlat = array();
             foreach($flatSetup as $key => $value)
@@ -94,9 +95,9 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->configuration['view']['templateRootPaths'] = $this->parseViewPaths($this->configuration['view']['templateRootPaths.']);
         $this->configuration['view']['partialRootPaths'] = $this->parseViewPaths($this->configuration['view']['partialRootPaths.']);
 
-        $this->view->setLayoutRootPaths( $this->configuration['view']['layoutRootPaths'] );
-        $this->view->setTemplateRootPaths( $this->configuration['view']['templateRootPaths'] );
-        $this->view->setPartialRootPaths( $this->configuration['view']['partialRootPaths'] );
+        $this->view->setLayoutRootPaths($this->configuration['view']['layoutRootPaths']);
+        $this->view->setTemplateRootPaths($this->configuration['view']['templateRootPaths']);
+        $this->view->setPartialRootPaths($this->configuration['view']['partialRootPaths']);
 
         /*
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
@@ -148,12 +149,11 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
      * @return void
      */
-    public function showAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote = NULL)
+    public function showAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote = null)
     {
-        if(!$t3quote)
-        {
+        if(!$t3quote) {
             $arguments = $this->request->getArguments();
-            $t3quote = $this->t3quotesRepository->findByUid( intval($arguments['t3quote']) );
+            $t3quote = $this->t3quotesRepository->findByUid(intval($arguments['t3quote']));
         }
         $this->view->assign('t3quote', $t3quote);
 
@@ -184,8 +184,8 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     public function getWeights()
     {
-        $weights = array();
-        $options = array('100', '0', '-100');
+        $weights = [];
+        $options = ['100', '0', '-100'];
         foreach ($options as $count => $option) {
             $weight = []; // new \stdClass();
             $weight['key'] = $option;
@@ -194,7 +194,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         }
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array('method' => __METHOD__,'$weights'=>$weights));
         return $weights;
-        
     }
 
     public function initializeCreateAction()
@@ -203,23 +202,23 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             // '$this->arguments' => $this->arguments,
             '$this->arguments[newT3quotes]' => $this->arguments['newT3quotes'],
         ));
-        
+
         $this->arguments['newT3quotes']
             ->getPropertyMappingConfiguration()
             ->forProperty('date')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
-                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
+
         $this->arguments['newT3quotes']
             ->getPropertyMappingConfiguration()
             ->forProperty('weight')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
                 '', ''
-                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
-            );
-        
+                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
+            );        
     }
 
     /**
@@ -231,7 +230,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function createAction(\WDB\T3quotes\Domain\Model\T3quotes $newT3quotes)
     {
         // $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        
+
         $this->t3quotesRepository->add($newT3quotes);
         $this->redirect('list');
     }
@@ -253,15 +252,16 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ->forProperty('date')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
-                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
+
         $this->arguments['t3quote']
             ->getPropertyMappingConfiguration()
             ->forProperty('weight')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
                 '', ''
-                #\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
     }
 
@@ -305,7 +305,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ->forProperty('date')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
-                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+                \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
         // for validation of weight
         $this->arguments['t3quote']
@@ -314,7 +314,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
                 '', ''
-                #\TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT,'Y-m-d'
+                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
     }
 
@@ -327,7 +327,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function updateAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
     {
         // $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        
+
         // $t3quote->setDate(new \DateTime( $t3quotes->getDate() ));
         $this->t3quotesRepository->update($t3quote);
         // $this->redirect('list');
@@ -344,7 +344,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function deleteAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
     {
         // $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-        
+
         $this->t3quotesRepository->remove($t3quote);
         $this->redirect('list');
     }
@@ -353,45 +353,37 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         foreach($paths as $key => $pathConfig)
         {
-            if(array_key_exists($key.'.', $paths)){
-                $paths[$key] = $this->resolveSinglePath($paths[$key], $paths[$key.'.']);
-                unset($paths[$key.'.']);
+            if(array_key_exists($key . '.', $paths)){
+                $paths[$key] = $this->resolveSinglePath($paths[$key], $paths[$key . '.']);
+                unset($paths[$key . '.']);
             }
         }
         return $paths;
     }
-    
+
     public function resolveSinglePath($name, array $pathConfig)
     {
         $path = '';
         $cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
-        $conf = array(
+        $conf = [
             '10'  => $name,
             '10.' => $pathConfig
-        );
+        ];
         $path = $cObj->cObjGet($conf);
         return $path;
     }
-    
+
     public function substituteConstants($typoScript, $flatConstantArray)
     {
-        if(is_array($typoScript))
-        {
-            foreach($typoScript as $key => $value)
-            {
-                if(is_array($value))
-                {
+        if(is_array($typoScript)) {
+            foreach($typoScript as $key => $value) {
+                if(is_array($value)) {
                     $this->substituteConstants($value, $flatConstantArray);
-                }
-                else
-                {
-                    foreach($flatConstantArray as $flatConstant => $flatValue)
-                    {
-                        if($value === '{$'.$flatConstant.'}')
-                        {
+                } else {
+                    foreach($flatConstantArray as $flatConstant => $flatValue) {
+                        if($value === '{$'.$flatConstant.'}') {
                             $typoScript[$key] = $flatValue;
-                        }
-                        else {
+                        } else {
                             $typoScript[$key] = preg_replace('/(\{\$'.$flatConstant.'\})/i', $flatValue, $value);
                         }
                     }
@@ -432,23 +424,22 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $actionName = $this->resolveActionMethodName();
         $templateName = substr($actionName, 0, -strlen('Action'));
 
-        if(isset($this->configuration['view']['templateRootPaths'][1])
+        if (isset($this->configuration['view']['templateRootPaths'][1])
           && !is_array($this->typoScript['view']['templateRootPaths'][1])
           && $this->configuration['view']['templateRootPaths'][1]
-        )
-        {
+        ) {
             // TODO: special templates for new, create, delete, etc. ??
-            $templatePathAndFilename = $this->configuration['view']['templateRootPaths'][1].'/T3quotes/'.ucfirst($templateName).'.html';
+            $templatePathAndFilename = $this->configuration['view']['templateRootPaths'][1] . '/T3quotes/' . ucfirst($templateName) . '.html';
         }
         else {
-            $templatePathAndFilename = $this->configuration['view']['templateRootPaths'][0].'/T3quotes/'.ucfirst($templateName).'.html';
+            $templatePathAndFilename = $this->configuration['view']['templateRootPaths'][0] . '/T3quotes/' . ucfirst($templateName) . '.html';
         }
 
         $this->view->setTemplatePathAndFilename($templatePathAndFilename);
 
         // $view->setTemplateSource( file_get_contents($this->typoScript['view']['layoutRootPaths'][1]) );
 
-        /*      
+        /*
         \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
             'method' => __METHOD__,
             'getFormat' => $this->view->getFormat(),
@@ -480,5 +471,4 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         // same with settings injection.
         return $this->view;
     }
-
 }

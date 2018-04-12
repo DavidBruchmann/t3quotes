@@ -84,7 +84,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getFullContext()
         );
-
     }
 
     /**

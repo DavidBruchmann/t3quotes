@@ -21,9 +21,9 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * @var array
      */
-    protected $defaultOrderings = array(
+    protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-    );
+    ];
 
     /**
      * Initializes the repository.
@@ -45,7 +45,7 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         // set the storagePids to respect
         // TODO:
-        $querySettings->setStoragePageIds(array(2));
+        $querySettings->setStoragePageIds([2]);
 
             // don't add fields from enablecolumns constraint
             // this function is deprecated!
@@ -79,9 +79,8 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $t3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
         // // Breaking //80700 - Deprecated functionality removed (9.0)
         // // Breaking //77460 - Extbase query cache removed (8.3)
-        if(version_compare($t3Version, '9.0.0', '<'))
-        {
-            $querySettings->useQueryCache(FALSE);
+        if(version_compare($t3Version, '9.0.0', '<')) {
+            $querySettings->useQueryCache(false);
         }
 
         /*

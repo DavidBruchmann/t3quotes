@@ -345,5 +345,4 @@ class T3quotes extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->authstate;
     }
-
 }
