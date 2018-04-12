@@ -32,65 +32,66 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
-        # $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
-        
-        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see #51529 for details
-        # $defaultQuerySettings = $this->createQuery()->getQuerySettings();
-        
-        # \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array('method' => __METHOD__,'$querySettings'=>$querySettings));
-        
+        // $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
+
+        // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see //51529 for details
+        // $defaultQuerySettings = $this->createQuery()->getQuerySettings();
+
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array('method' => __METHOD__,'$querySettings'=>$querySettings));
+
         // don't add the pid constraint
-        # $querySettings->setRespectStoragePage(TRUE);
-        # $querySettings->setRespectStoragePage(false);
-        
+        // $querySettings->setRespectStoragePage(TRUE);
+        // $querySettings->setRespectStoragePage(false);
+
         // set the storagePids to respect
         // TODO:
         $querySettings->setStoragePageIds(array(2));
-        
-			// don't add fields from enablecolumns constraint
-			// this function is deprecated!
-			// not existing in version 8.7.10
-			# setRespectEnableFields(FALSE);
-        
+
+            // don't add fields from enablecolumns constraint
+            // this function is deprecated!
+            // not existing in version 8.7.10
+            // setRespectEnableFields(FALSE);
+
         // define the enablecolumn fields to be ignored
         // if nothing else is given, all enableFields are ignored
-        # $querySettings->setIgnoreEnableFields(TRUE);
-        
+        // $querySettings->setIgnoreEnableFields(TRUE);
+
         // define single fields to be ignored
-        # $querySettings->setEnableFieldsToBeIgnored(array('disabled','starttime'));
-        
+        // $querySettings->setEnableFieldsToBeIgnored(array('disabled','starttime'));
+
         // add deleted rows to the result
-        # $querySettings->setIncludeDeleted(TRUE);
-        
+        // $querySettings->setIncludeDeleted(TRUE);
+
         // don't add sys_language_uid constraint
-        # $querySettings->setRespectSysLanguage(FALSE);
-        
+        // $querySettings->setRespectSysLanguage(FALSE);
+
         // perform translation to dedicated language
-        # $querySettings->setSysLanguageUid(42);
-        # $querySettings->setLanguageUid(42);
-        
-        # $querySettings->setLanguageOverlayMode();
-        
-        # $querySettings->setLanguageMode();
-        
-        # $querySettings->setUsePreparedStatement();
-        
-        
+        // $querySettings->setSysLanguageUid(42);
+        // $querySettings->setLanguageUid(42);
+
+        // $querySettings->setLanguageOverlayMode();
+
+        // $querySettings->setLanguageMode();
+
+        // $querySettings->setUsePreparedStatement();
+
+
         $t3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version( TYPO3_version );
-        // # Breaking #80700 - Deprecated functionality removed (9.0)
-        // # Breaking #77460 - Extbase query cache removed (8.3)
-		if(version_compare($t3Version, '9.0.0', '<'))
-		{
-			$querySettings->useQueryCache(FALSE);
-		}
-        
-/*
-\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-	'method' => __METHOD__,
-	'$querySettings'=>$querySettings,
-	'debug_backtrace()'=>debug_backtrace()
-));
-*/
+        // // Breaking //80700 - Deprecated functionality removed (9.0)
+        // // Breaking //77460 - Extbase query cache removed (8.3)
+        if(version_compare($t3Version, '9.0.0', '<'))
+        {
+            $querySettings->useQueryCache(FALSE);
+        }
+
+        /*
+        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
+            'method' => __METHOD__,
+            '$querySettings'=>$querySettings,
+            'debug_backtrace()'=>debug_backtrace()
+        ));
+        */
+
         $this->setDefaultQuerySettings($querySettings);
     }
 
@@ -98,11 +99,9 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $query = $this->createQuery();
         $result = $query->execute();
-        # \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(''method' => __METHOD__,$query'=>$query,'$result'=>$result)); //->persistenceManager
+        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(''method' => __METHOD__,$query'=>$query,'$result'=>$result)); //->persistenceManager
         return $result;
     }
-    
-    
 
     /**
      * Replaces an existing object with the same identifier by the given object

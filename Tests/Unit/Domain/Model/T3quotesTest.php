@@ -34,7 +34,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getPreface()
         );
-
     }
 
     /**
@@ -49,7 +48,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'preface',
             $this->subject
         );
-
     }
 
     /**
@@ -61,7 +59,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getQuote()
         );
-
     }
 
     /**
@@ -76,7 +73,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'quote',
             $this->subject
         );
-
     }
 
     /**
@@ -103,7 +99,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'fullContext',
             $this->subject
         );
-
     }
 
     /**
@@ -115,7 +110,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getAuthorName()
         );
-
     }
 
     /**
@@ -130,7 +124,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'authorName',
             $this->subject
         );
-
     }
 
     /**
@@ -142,7 +135,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getAuthorEmail()
         );
-
     }
 
     /**
@@ -157,7 +149,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'authorEmail',
             $this->subject
         );
-
     }
 
     /**
@@ -169,7 +160,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getAuthorTitle()
         );
-
     }
 
     /**
@@ -184,7 +174,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'authorTitle',
             $this->subject
         );
-
     }
 
     /**
@@ -210,7 +199,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             null,
             $this->subject->getDate()
         );
-
     }
 
     /**
@@ -226,7 +214,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'date',
             $this->subject
         );
-
     }
 
     /**
@@ -238,7 +225,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             false,
             $this->subject->getSelected()
         );
-
     }
 
     /**
@@ -253,7 +239,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'selected',
             $this->subject
         );
-
     }
 
     /**
@@ -265,7 +250,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             '',
             $this->subject->getRotationQuote()
         );
-
     }
 
     /**
@@ -280,7 +264,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'rotationQuote',
             $this->subject
         );
-
     }
 
     /**
@@ -292,7 +275,6 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             false,
             $this->subject->getAuthstate()
         );
-
     }
 
     /**
@@ -307,6 +289,5 @@ class T3quotesTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             'authstate',
             $this->subject
         );
-
     }
 }

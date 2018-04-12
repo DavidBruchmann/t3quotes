@@ -35,7 +35,6 @@ class T3quotesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function listActionFetchesAllT3quotessFromRepositoryAndAssignsThemToView()
     {
-
         $allT3quotess = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();

@@ -34,7 +34,6 @@ class TtContentTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             false,
             $this->subject->getT3quotesSelected()
         );
-
     }
 
     /**
@@ -49,6 +48,5 @@ class TtContentTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             't3quotesSelected',
             $this->subject
         );
-
     }
 }

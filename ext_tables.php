@@ -2,16 +2,14 @@
 defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
-    function($extKey)
-    {
-
+    function($extKey) {
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
             'WDB.T3quotes',
             'T3quotes',
             'T3Quotes'
         );
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript/Simple',   'Quotes simple Configuration');
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript/Simple', 'Quotes simple Configuration');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($extKey, 'Configuration/TypoScript/Advanced', 'Quotes advanced Configuration');
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_t3quotes_domain_model_t3quotes', 'EXT:t3quotes/Resources/Private/Language/locallang_csh_tx_t3quotes_domain_model_t3quotes.xlf');
@@ -24,7 +22,6 @@ call_user_func(
             $extKey,
             'tx_t3quotes_domain_model_t3quotes'
         );
-
     },
     $_EXTKEY
 );
