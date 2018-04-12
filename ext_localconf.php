@@ -60,7 +60,7 @@ if (version_compare($t3Version, '8.0.0', '<')) {
         configureT3quotesPlugin();
         configureT3quotesWizards('v7');
     //  addT3quotesIconToRegistry();
-    },$_EXTKEY);
+    }, $_EXTKEY);
 } else {
     call_user_func(function () {
         configureT3quotesPlugin();

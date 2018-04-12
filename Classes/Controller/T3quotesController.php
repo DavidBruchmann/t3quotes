@@ -237,7 +237,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->redirect('list');
     }
 
-
     public function initializeEditAction()
     {
         /*

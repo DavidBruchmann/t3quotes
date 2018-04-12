@@ -181,9 +181,9 @@ $tx_t3quotes_domain_model_t3quotes = [
                 'renderType' => 'selectSingle',
                 'items' => [
                     // ['-- Label --', 0],
-                    ["LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.0", "100"],
-                    ["LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.1", "0"],
-                    ["LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.2", "-100"]
+                    ['LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.0', '100'],
+                    ['LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.1', '0'],
+                    ['LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.2', '-100']
                 ],
                 'size' => 1,
                 'maxitems' => 1,
