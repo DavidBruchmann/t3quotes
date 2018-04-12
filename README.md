@@ -1,5 +1,7 @@
-t3quotes
-========
+TYPO3 Extension ``t3quotes`` 
+========================
+[![StyleCI](https://styleci.io/repos/91969362/shield?branch=master)](https://styleci.io/repos/91969362/)
+
 **t3quotes** is an extension for [TYPO3](https://typo3.org) to collect and display quotes.
 
 preface
