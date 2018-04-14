@@ -2,6 +2,7 @@
   "name": "wdb/t3quotes",
   "type": "typo3-cms-extension",
   "description": "A database with quotes which are displayed on the webpage in various ways, based on extbase & fluid for TYPO3 CMS",
+  #"version": "3.2.1",
   "keywords": [
     "TYPO3",
     "extension",
@@ -9,6 +10,9 @@
     "t3quotes"
   ],
   "homepage": "https://barlians.com",
+  "license": [
+    "GPL-2.0-or-later"
+  ],
   "authors": [
     {
       "name": "David Bruchmann",
@@ -16,8 +20,8 @@
       "homepage": "http://barlians.com"
     }
   ],
-  "license": ["GPL-2.0-or-later"],
   "require": {
+    "php": "^7.0",
     "typo3/cms-core": "^7.6.13 || >=8.5.0 <=9.2"
   },
   "suggest": {
@@ -25,17 +29,20 @@
     "reelworx/rx-shariff": "~10.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.8.0",
+    "phpunit/phpunit": "^5.6",
+    # : "~4.8.0"
     "friendsofphp/php-cs-fixer": "^2.0"
   },
   "autoload": {
     "psr-4": {
-      "WDB\\T3quotes\\": "Classes"
+      "WDB\\T3quotes\\": "Classes/",
+      # "PhpParser\\": "Resources/Private/PHP/PHP-Parser/lib/PhpParser/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "WDB\\T3quotes\\Tests\\": "Tests"
+      "WDB\\T3quotes\\Tests\\": "Tests/",
+      # "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
     }
   },
   "replace": {
@@ -44,7 +51,11 @@
   },
   "config": {
     "vendor-dir": ".Build/vendor",
-    "bin-dir": ".Build/bin"
+    "bin-dir": ".Build/bin",
+    "preferred-install": {
+      "typo3/cms": "source",
+      "*": "dist"
+    }
   },
   "scripts": {
     "post-autoload-dump": [
