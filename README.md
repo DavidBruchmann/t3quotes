@@ -1,6 +1,6 @@
 TYPO3 Extension ``t3quotes`` 
 ========================
-[![Build Status](https://travis-ci.org/DavidBruchmann/t3quotes)](https://travis-ci.org/DavidBruchmann/t3quotes)
+[![Build Status](https://travis-ci.org/DavidBruchmann/t3quotes.svg?branch=master)](https://travis-ci.org/DavidBruchmann/t3quotes)
 [![StyleCI](https://styleci.io/repos/91969362/shield?branch=master)](https://styleci.io/repos/91969362/)
 
 **t3quotes** is an extension for [TYPO3](https://typo3.org) to collect and display quotes.
