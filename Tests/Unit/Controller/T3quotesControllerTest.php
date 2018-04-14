@@ -64,7 +64,7 @@ class T3quotesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         $this->inject($this->subject, 'view', $view);
         $view->expects(self::once())->method('assign')->with('t3quote', $t3quote);
 
-        $this->subject->showAction($t3quotes);
+        $this->subject->showAction($t3quote);
     }
 
     /**
