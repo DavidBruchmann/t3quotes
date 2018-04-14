@@ -33,9 +33,9 @@ class T3quotesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function listActionFetchesAllT3quotessFromRepositoryAndAssignsThemToView()
+    public function listActionFetchesAllT3quotesFromRepositoryAndAssignsThemToView()
     {
-        $allT3quotess = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $allT3quotes = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -43,11 +43,11 @@ class T3quotesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
-        $t3quotesRepository->expects(self::once())->method('findAll')->will(self::returnValue($allT3quotess));
+        $t3quotesRepository->expects(self::once())->method('findAll')->will(self::returnValue($allT3quotes));
         $this->inject($this->subject, 't3quotesRepository', $t3quotesRepository);
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
-        $view->expects(self::once())->method('assign')->with('t3quotess', $allT3quotess);
+        $view->expects(self::once())->method('assign')->with('t3quotes', $allT3quotes);
         $this->inject($this->subject, 'view', $view);
 
         $this->subject->listAction();
@@ -56,13 +56,13 @@ class T3quotesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function showActionAssignsTheGivenT3quotesToView()
+    public function showActionAssignsTheGivenT3quoteToView()
     {
-        $t3quotes = new \WDB\T3quotes\Domain\Model\T3quotes();
+        $t3quote = new \WDB\T3quotes\Domain\Model\T3quotes();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('t3quotes', $t3quotes);
+        $view->expects(self::once())->method('assign')->with('t3quote', $t3quote);
 
         $this->subject->showAction($t3quotes);
     }
@@ -70,68 +70,68 @@ class T3quotesControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     /**
      * @test
      */
-    public function createActionAddsTheGivenT3quotesToT3quotesRepository()
+    public function createActionAddsTheGivenT3quoteToT3quotesRepository()
     {
-        $t3quotes = new \WDB\T3quotes\Domain\Model\T3quotes();
+        $t3quote = new \WDB\T3quotes\Domain\Model\T3quotes();
 
         $t3quotesRepository = $this->getMockBuilder(\WDB\T3quotes\Domain\Repository\T3quotesRepository::class)
             ->setMethods(['add'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $t3quotesRepository->expects(self::once())->method('add')->with($t3quotes);
+        $t3quotesRepository->expects(self::once())->method('add')->with($t3quote);
         $this->inject($this->subject, 't3quotesRepository', $t3quotesRepository);
 
-        $this->subject->createAction($t3quotes);
+        $this->subject->createAction($t3quote);
     }
 
     /**
      * @test
      */
-    public function editActionAssignsTheGivenT3quotesToView()
+    public function editActionAssignsTheGivenT3quoteToView()
     {
-        $t3quotes = new \WDB\T3quotes\Domain\Model\T3quotes();
+        $t3quote = new \WDB\T3quotes\Domain\Model\T3quotes();
 
         $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('t3quotes', $t3quotes);
+        $view->expects(self::once())->method('assign')->with('t3quote', $t3quote);
 
-        $this->subject->editAction($t3quotes);
+        $this->subject->editAction($t3quote);
     }
 
     /**
      * @test
      */
-    public function updateActionUpdatesTheGivenT3quotesInT3quotesRepository()
+    public function updateActionUpdatesTheGivenT3quoteInT3quotesRepository()
     {
-        $t3quotes = new \WDB\T3quotes\Domain\Model\T3quotes();
+        $t3quote = new \WDB\T3quotes\Domain\Model\T3quotes();
 
         $t3quotesRepository = $this->getMockBuilder(\WDB\T3quotes\Domain\Repository\T3quotesRepository::class)
             ->setMethods(['update'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $t3quotesRepository->expects(self::once())->method('update')->with($t3quotes);
+        $t3quotesRepository->expects(self::once())->method('update')->with($t3quote);
         $this->inject($this->subject, 't3quotesRepository', $t3quotesRepository);
 
-        $this->subject->updateAction($t3quotes);
+        $this->subject->updateAction($t3quote);
     }
 
     /**
      * @test
      */
-    public function deleteActionRemovesTheGivenT3quotesFromT3quotesRepository()
+    public function deleteActionRemovesTheGivenT3quoteFromT3quotesRepository()
     {
-        $t3quotes = new \WDB\T3quotes\Domain\Model\T3quotes();
+        $t3quote = new \WDB\T3quotes\Domain\Model\T3quotes();
 
         $t3quotesRepository = $this->getMockBuilder(\WDB\T3quotes\Domain\Repository\T3quotesRepository::class)
             ->setMethods(['remove'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $t3quotesRepository->expects(self::once())->method('remove')->with($t3quotes);
+        $t3quotesRepository->expects(self::once())->method('remove')->with($t3quote);
         $this->inject($this->subject, 't3quotesRepository', $t3quotesRepository);
 
-        $this->subject->deleteAction($t3quotes);
+        $this->subject->deleteAction($t3quote);
     }
 }
