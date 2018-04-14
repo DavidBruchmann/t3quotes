@@ -33,12 +33,12 @@
   },
   "autoload": {
     "psr-4": {
-      "WDB\\T3quotes\\": "Classes/",
+      "WDB\\T3quotes\\": "Classes"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "WDB\\T3quotes\\Tests\\": "Tests/",
+      "WDB\\T3quotes\\Tests\\": "Tests"
     }
   },
   "replace": {
