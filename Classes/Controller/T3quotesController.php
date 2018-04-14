@@ -331,6 +331,8 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->t3quotesRepository->update($t3quote);
         // $this->redirect('list');
         // $this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
+        
+        $t3quote = $t3quote ? $t3quote : $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
         $this->view->assign('t3quote', $t3quote);
     }
 
