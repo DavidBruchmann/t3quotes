@@ -2,7 +2,6 @@
   "name": "wdb/t3quotes",
   "type": "typo3-cms-extension",
   "description": "A database with quotes which are displayed on the webpage in various ways, based on extbase & fluid for TYPO3 CMS",
-  // "version": "3.2.1",
   "keywords": [
     "TYPO3",
     "extension",
@@ -30,19 +29,16 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^5.6",
-    // : "~4.8.0"
     "friendsofphp/php-cs-fixer": "^2.0"
   },
   "autoload": {
     "psr-4": {
       "WDB\\T3quotes\\": "Classes/",
-      // "PhpParser\\": "Resources/Private/PHP/PHP-Parser/lib/PhpParser/"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "WDB\\T3quotes\\Tests\\": "Tests/",
-      // "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
     }
   },
   "replace": {
