@@ -1,14 +1,14 @@
 language: php
 
-matrix:
-  fast_finish: true
-  include:
-    - php: 7.1
-      env: TYPO3_VERSION=^8
-    - php: 7.0
-      env: TYPO3_VERSION=^8
-    - php: 7.2
-      env: TYPO3_VERSION=^9
+# matrix:
+#  fast_finish: true
+#  include:
+#    - php: 7.1
+#      env: TYPO3_VERSION=^8
+#    - php: 7.0
+#      env: TYPO3_VERSION=^8
+#    - php: 7.2
+#      env: TYPO3_VERSION=^9
 
 sudo: false
 
@@ -49,7 +49,7 @@ script:
   - >
     echo;
     echo "Running unit tests";
-    .Build/bin/phpunit --colors  -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/
+    ./vendor/bin/phpunit --colors  -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/
   - >
     echo;
     echo "Running php lint";
