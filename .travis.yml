@@ -25,6 +25,7 @@ before_install:
   - composer self-update
   - composer --version
   - if php -i | grep -q xdebug; then phpenv config-rm xdebug.ini; fi
+#  - mysql -e 'CREATE DATABASE typo3 CHARACTER SET utf8 COLLATE utf8_general_ci;'
 
 install:
   - >
@@ -46,13 +47,20 @@ install:
 #     .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/;
      
 before_script:
-  - export TYPO3_PATH_WEB=$PWD/.build/Web
+  - mkdir -p .Build/Web/typo3conf
+  - export TYPO3_PATH_WEB=$PWD/.Build/Web
   - composer install
-#  - mkdir -p .Build/Web/typo3conf
   - .Build/bin/typo3cms install:setup --non-interactive --database-host-name=127.0.0.1 --database-port=3306 --database-user-name=travis --database-name=typo3 --use-existing-database --admin-user-name=travis --admin-password=travis123456! --site-setup-type=site
   - .Build/bin/typo3cms install:generatepackagestates
 
 script:
+  - >
+    echo;
+#    echo "Running functional tests";
+    export typo3DatabaseName="typo3";
+    export typo3DatabaseHost="localhost";
+    export typo3DatabaseUsername="root";
+    export typo3DatabasePassword="";
   - >
     echo;
     echo "Running unit tests";
