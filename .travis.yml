@@ -52,7 +52,7 @@ script:
   - >
     echo;
     echo "Running unit tests";
-    .Build/vendor/bin/phpunit --colors  -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/
+    .Build/bin/phpunit --colors  -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/
   - >
     echo;
     echo "Running php lint";
