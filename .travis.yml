@@ -24,28 +24,67 @@ cache:
 before_install:
   - composer self-update
   - composer --version
+  - if php -i | grep -q xdebug; then phpenv config-rm xdebug.ini; fi
 
-before_script:
-  - composer require typo3/cms=$TYPO3_VERSION
-  - composer require typo3/testing-framework=~1.0.0
-  # Restore composer.json
-  - git checkout composer.json
-  - export TYPO3_PATH_WEB=$PWD/.Build/Web
+install:
+  - >
+    if [[ "$TYPO3" = *"dev"* ]]; then
+      composer config minimum-stability dev;
+      composer config prefer-stable true;
+      composer require typo3/cms-core="dev-master" --no-update;
+      composer require typo3/cms-extbase="dev-master" --no-update;
+    fi
+  # composer require nimut/typo3-complete="$TYPO3"
+  - export TYPO3_PATH_ROOT=$PWD/.Build/Web
 
 script:
-  - >
-    echo;
-    echo "Running unit tests";
-    .Build/bin/phpunit --colors  -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTests.xml Tests/Unit/
-  - >
-    echo;
-    echo "Running php lint";
-    find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
-  - >
-    echo;
-    echo "Running functional tests";
-    export typo3DatabaseName="typo3";
-    export typo3DatabaseHost="localhost";
-    export typo3DatabaseUsername="root";
-    export typo3DatabasePassword="";
-    find 'Tests/Functional' -wholename '*Test.php' | parallel --gnu 'echo; echo "Running functional test suite {}"; .Build/bin/phpunit --colors  -c .Build/vendor/typo3/testing-framework/Resources/Core/Build/FunctionalTests.xml {}'
+   - >
+     echo;
+     echo "Running unit tests";
+     echo;
+     echo;
+     .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit/;
+   - >
+     echo;
+     echo "Running php lint";
+     echo;
+     echo;
+     find . -name \*.php ! -path "./.Build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;;
+jobs:
+  fast_finish: true
+  allow_failures:
+    - env: TYPO3=dev-master
+  include:
+    - stage: test
+      php: 7.2
+      env: TYPO3=dev-master
+    - stage: test
+      php: 7.2
+      env: TYPO3=~9.2.0
+    - stage: test
+      php: 7.2
+      env: TYPO3=~9.1.1
+    - stage: test
+      php: 7.2
+      env: TYPO3=~9.0.2
+    - stage: test
+      php: 7.2
+      env: TYPO3=^8.7
+    - stage: test
+      php: 7.1
+      env: TYPO3=^8.7
+    - stage: test
+      php: 7.1
+      env: TYPO3=^7.6
+    - stage: test
+      php: 7.0
+      env: TYPO3=^8.0
+    - stage: test
+      php: 7.0
+      env: TYPO3=^7.6
+    - stage: test
+      php: 5.6
+      env: TYPO3=^7.6
+    - stage: test
+      php: 5.5
+env: TYPO3=^7.6
