@@ -66,7 +66,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // TODO: nice error-message if $this->configuration['view'] is not found (means no template included)
         $typoScriptService = $this->objectManager->get(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
-        if(!isset($this->configuration['view'])){
+        if (!isset($this->configuration['view'])) {
             // TODO: show hint: configuration not loaded
         }
         $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray($this->configuration['view']);
@@ -324,7 +324,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                     if (count($records)) {
                         $pidArray = [];
                         foreach ($records as $count => $record) {
-                            $pidArray[] = implode(',',array_map('intval', explode(',',$record->getPages())));
+                            $pidArray[] = implode(',', array_map('intval', explode(',', $record->getPages())));
                         }
                         $data = $record->toArray();
                         $data['pages'] = implode(',', $pidArray);
