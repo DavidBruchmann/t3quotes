@@ -586,7 +586,7 @@ class TtContent extends \TYPO3\CMS\Extbase\DomainObject\AbstractValueObject
     {
         return $this->t3quotesSelected ? true : false;
     }
-    
+
     public function toArray()
     {
         $array = [

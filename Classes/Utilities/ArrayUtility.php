@@ -44,10 +44,10 @@ class ArrayUtility
     {
         $pids = [0];
         if (isset($cObject->data['pages'])) {
-            $pids = array_map('intval', explode(',',$cObject->data['pages']));
+            $pids = array_map('intval', explode(',', $cObject->data['pages']));
         }
         if (!count($pids) && isset($configuration['persistence']['storagePid'])) {
-            $pids = array_map('intval', explode(',',$configuration['persistence']['storagePid']));
+            $pids = array_map('intval', explode(',', $configuration['persistence']['storagePid']));
         }
         return $pids;
     }

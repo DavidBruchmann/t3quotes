@@ -20,7 +20,7 @@ namespace WDB\T3quotes\Domain\Repository;
 class TtContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     protected $objectType = '\WDB\T3quotes\Domain\Model\Ttcontent';
-    
+
     public function findByPid($pid)
     {
         $querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
@@ -33,8 +33,8 @@ class TtContentRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->equals('CType', 'list'),
                 $query->equals('listType', 't3quotes_t3quotes'),
                 // @TODO: The \"in\" operator must be given a multivalued operand (array, ArrayAccess, Traversable).
-                // $query->in('pid',$pid,true)
-                $query->equals('pid',$pid)
+                // $query->in('pid', $pid, true)
+                $query->equals('pid', $pid)
             )
         );
         $result = $query->execute();

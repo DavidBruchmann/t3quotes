@@ -19,7 +19,7 @@ namespace WDB\T3quotes\Domain\Repository;
 class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
     protected $storagePageIds = [0];
-    
+
     /**
      * @var array
      */
@@ -44,8 +44,6 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // $querySettings->setRespectStoragePage(TRUE);
         // $querySettings->setRespectStoragePage(false);
 
-        // set the storagePids to respect
-        // TODO:
         $querySettings->setStoragePageIds($this->storagePageIds);
 
         //    don't add fields from enablecolumns constraint
@@ -102,8 +100,9 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $this->persistenceManager->update($modifiedObject);
         $this->persistenceManager->persistAll();
     }
-    
-    public function setStoragePageIds($storagePageIds){
+
+    public function setStoragePageIds($storagePageIds)
+    {
         $this->storagePageIds = $storagePageIds;
     }
 }

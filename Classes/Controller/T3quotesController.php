@@ -35,13 +35,13 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @inject
      */
     protected $ttContentRepository = null;
-    
+
     /**
      * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
      * @inject
      */
     protected $persistenceManager;
-    
+
     protected $storagePageIds = [0];
 
 //    /**
@@ -66,16 +66,16 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // TODO: nice error-message if $this->configuration['view'] is not found (means no template included)
         $typoScriptService = $this->objectManager->get(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
-		if(!isset($this->configuration['view'])){
-			// TODO: show hint: configuration not loaded
-		}
+        if(!isset($this->configuration['view'])){
+            // TODO: show hint: configuration not loaded
+        }
         $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray($this->configuration['view']);
 
         // Adding Version Information to use in Templates
         $typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version();
         $this->settings['typo3Version'] = $typo3Version;
         $this->settings['typo3VersionArray'] = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionStringToArray($typo3Version);
-        
+
         if (!is_object($this->ttContentRepository)) {
             $this->ttContentRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\TtContentRepository');
         }
@@ -124,7 +124,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->setLayoutRootPaths($this->configuration['view']['layoutRootPaths']);
         $this->view->setTemplateRootPaths($this->configuration['view']['templateRootPaths']);
         $this->view->setPartialRootPaths($this->configuration['view']['partialRootPaths']);
-        
+
         $storagePageIds = \WDB\T3quotes\Utilities\ArrayUtility::getStoragePids($this->getContentObject(), $this->configuration);
         $this->t3quotesRepository->setStoragePageIds($storagePageIds);
     }
@@ -198,10 +198,10 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         $pid = \WDB\T3quotes\Utilities\ArrayUtility::getSingleStoragePid($this->getContentObject(), $this->configuration);
         $newT3quote->setPid($pid);
-		$this->t3quotesRepository->add($newT3quote);
+        $this->t3quotesRepository->add($newT3quote);
         $this->persistenceManager->persistAll();
         $uid = $newT3quote->getUid();
-        
+
         // TODO: add choice for action/template [update | show | list]
         $this->redirect('list');
     }
@@ -269,12 +269,12 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // $t3quote->setDate(new \DateTime( $t3quotes->getDate() ));
         $this->t3quotesRepository->update($t3quote);
-		if (!is_object($t3quote)) {
+        if (!is_object($t3quote)) {
             $this->addFlashMessage($GLOBALS['LANG']->sL('LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf:tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject'));
             $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
             $this->redirect('edit', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
         } else {
-			// TODO: add choice for action/template [update | show | list]
+            // TODO: add choice for action/template [update | show | list]
             $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
         }
         // $this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
@@ -307,14 +307,14 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     protected function getContentObject()
     {
-		$cObj = $this->configurationManager->getContentObject();
+        $cObj = $this->configurationManager->getContentObject();
         if (isset($cObj->data['uid']) && $cObj->table=='tt_content') {
             return $cObj;
         } else {
             $currentRecord = explode(':', $GLOBALS['TSFE']->currentRecord);
             $table = $currentRecord[0];
-			if ($table==='tt_content') {
-				$uid = $currentRecord[1];
+            if ($table==='tt_content') {
+                $uid = $currentRecord[1];
                 $data = $this->ttContentRepository->findByUid($uid);
                 $cObj->start($data->toArray(), $table);
                 $cObj->currentRecord = $table . ':' . $uid;
