@@ -103,8 +103,8 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.settings.disableDetailView">
 				<source>Disable detail view:Don't show detail-view in frontend and hide corresponding links</source>
 			</trans-unit>
-			
-			
+
+
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToTemplateRootFE">
 				<source>Path to template root (FE)</source>
 			</trans-unit>
@@ -114,12 +114,17 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.view.pathToLayoutsFE">
 				<source>Path to template layouts (FE)</source>
 			</trans-unit>
-			
-			
+
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject">
+				<source>Something went wrong while saving the quote. Use the browser's back-button for trying to recover and save again.</source>
+			</trans-unit>
+
+
 			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">
 				<source>T3quotes Selected</source>
 			</trans-unit>
-			
+
+
 		</body>
 	</file>
 </xliff>

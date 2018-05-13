@@ -18,6 +18,8 @@ namespace WDB\T3quotes\Domain\Repository;
  */
 class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
+    protected $storagePageIds = [0];
+    
     /**
      * @var array
      */
@@ -32,7 +34,6 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         /** @var $querySettings \TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings */
         $querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
-        // $querySettings = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\Typo3QuerySettings');
 
         // go for $defaultQuerySettings = $this->createQuery()->getQuerySettings(); if you want to make use of the TS persistence.storagePid with defaultQuerySettings(), see //51529 for details
         // $defaultQuerySettings = $this->createQuery()->getQuerySettings();
@@ -45,7 +46,7 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         // set the storagePids to respect
         // TODO:
-        $querySettings->setStoragePageIds([2]);
+        $querySettings->setStoragePageIds($this->storagePageIds);
 
         //    don't add fields from enablecolumns constraint
         //    this function is deprecated!
@@ -81,24 +82,7 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         if (version_compare($t3Version, '9.0.0', '<')) {
             $querySettings->useQueryCache(false);
         }
-
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__,
-            '$querySettings'=>$querySettings,
-            'debug_backtrace()'=>debug_backtrace()
-        ));
-        */
-
         $this->setDefaultQuerySettings($querySettings);
-    }
-
-    public function findAll()
-    {
-        $query = $this->createQuery();
-        $result = $query->execute();
-        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(''method' => __METHOD__,$query'=>$query,'$result'=>$result)); //->persistenceManager
-        return $result;
     }
 
     /**
@@ -117,5 +101,9 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
         $this->persistenceManager->update($modifiedObject);
         $this->persistenceManager->persistAll();
+    }
+    
+    public function setStoragePageIds($storagePageIds){
+        $this->storagePageIds = $storagePageIds;
     }
 }

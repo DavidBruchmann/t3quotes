@@ -28,6 +28,22 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     protected $t3quotesRepository = null;
 
+    /**
+     * ttContentRepository
+     *
+     * @var \WDB\T3quotes\Domain\Repository\TtContentRepository
+     * @inject
+     */
+    protected $ttContentRepository = null;
+    
+    /**
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @inject
+     */
+    protected $persistenceManager;
+    
+    protected $storagePageIds = [0];
+
 //    /**
 //     * @var string
 //     * @api
@@ -50,12 +66,22 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // TODO: nice error-message if $this->configuration['view'] is not found (means no template included)
         $typoScriptService = $this->objectManager->get(\TYPO3\CMS\Extbase\Service\TypoScriptService::class);
+		if(!isset($this->configuration['view'])){
+			// TODO: show hint: configuration not loaded
+		}
         $this->configuration['view'] = $typoScriptService->convertPlainArrayToTypoScriptArray($this->configuration['view']);
 
         // Adding Version Information to use in Templates
         $typo3Version = \TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version();
         $this->settings['typo3Version'] = $typo3Version;
         $this->settings['typo3VersionArray'] = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionStringToArray($typo3Version);
+        
+        if (!is_object($this->ttContentRepository)) {
+            $this->ttContentRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\TtContentRepository');
+        }
+        if (!is_object($this->persistenceManager)) {
+            $this->persistenceManager = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager');
+        }
 
         /*
         // storing flatSetup in cache if existing
@@ -72,7 +98,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 }
             }
             $this->viewSetupRaw = $this->configuration['view'];
-            $this->viewSetup = $this->substituteConstants($this->viewSetupRaw, $tsConfigFlat);
+            $this->viewSetup = \WDB\T3quotes\Utilities\ArrayUtility::substituteTyposcriptConstants($this->viewSetupRaw, $tsConfigFlat);
             $cache->set($cacheIdentifier, $flatSetup); // , $tags, $lifetime
         }
         else {
@@ -91,36 +117,16 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->view->injectSettings($this->settings);
         }
 
-        $this->configuration['view']['layoutRootPaths'] = $this->parseViewPaths($this->configuration['view']['layoutRootPaths.']);
-        $this->configuration['view']['templateRootPaths'] = $this->parseViewPaths($this->configuration['view']['templateRootPaths.']);
-        $this->configuration['view']['partialRootPaths'] = $this->parseViewPaths($this->configuration['view']['partialRootPaths.']);
+        $this->configuration['view']['layoutRootPaths'] = \WDB\T3quotes\Utilities\ArrayUtility::parseViewPaths($this->configuration['view']['layoutRootPaths.']);
+        $this->configuration['view']['templateRootPaths'] = \WDB\T3quotes\Utilities\ArrayUtility::parseViewPaths($this->configuration['view']['templateRootPaths.']);
+        $this->configuration['view']['partialRootPaths'] = \WDB\T3quotes\Utilities\ArrayUtility::parseViewPaths($this->configuration['view']['partialRootPaths.']);
 
         $this->view->setLayoutRootPaths($this->configuration['view']['layoutRootPaths']);
         $this->view->setTemplateRootPaths($this->configuration['view']['templateRootPaths']);
         $this->view->setPartialRootPaths($this->configuration['view']['partialRootPaths']);
-
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__.':'.__LINE__,
-            '$this->settings' => $this->settings,
-            '$this->configuration' => $this->configuration,
-            '$this->view' => $this->view,
-            // '$this->viewSetup' => $this->viewSetup,
-            // '$templateService ' => $templateService,
-            // 'TYPO3\CMS\Core\TypoScript\TemplateService->flatSetup' => $config, //
-            'TSFE->tmpl->flatSetup' => $GLOBALS['TSFE']->tmpl->flatSetup,
-            'TSFE'=>$GLOBALS['TSFE'],
-            'user'=>$GLOBALS['TSFE']->fe_user->user,
-            '$cacheIdentifier' => $cacheIdentifier,
-            '$flatSetup' => $flatSetup,
-            '$this->configuration' => $this->configuration,
-            // '$tsConfigFlat' => $tsConfigFlat,
-            '$this->request->getArguments()' => $this->request->getArguments(),
-            '$_GET' => $_GET,
-            '$_POST' => $_POST,
-            '_GP' => \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('tx_t3quotes_t3quotes'),
-        ));
-        */
+        
+        $storagePageIds = \WDB\T3quotes\Utilities\ArrayUtility::getStoragePids($this->getContentObject(), $this->configuration);
+        $this->t3quotesRepository->setStoragePageIds($storagePageIds);
     }
 
     /**
@@ -131,15 +137,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     public function listAction()
     {
         $t3quotes = $this->t3quotesRepository->findAll();
-
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__,
-            '$this->view'=>$this->view,
-            'debug_backtrace' => debug_backtrace()
-        ));
-        */
-
         $this->view->assign('t3quotes', $t3quotes);
     }
 
@@ -156,17 +153,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $t3quote = $this->t3quotesRepository->findByUid(intval($arguments['t3quote']));
         }
         $this->view->assign('t3quote', $t3quote);
-
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__,
-            '$this->view'=>$this->view,
-            'debug_backtrace' => debug_backtrace(),
-            '$t3quote' => $t3quote,
-            '$this->request->getArguments()' => $this->request->getArguments(),
-            '$this->arguments' => $this->arguments
-        ));
-        */
     }
 
     /**
@@ -178,48 +164,25 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
         $t3quote->setDate(new \DateTime('now'));
-        $t3quote->weights = $this->getWeights();
+        $t3quote->weights = \WDB\T3quotes\Utilities\ArrayUtility::getWeights();
         $this->view->assign('t3quote', $t3quote);
-    }
-
-    public function getWeights()
-    {
-        $weights = [];
-        $options = ['100', '0', '-100'];
-        foreach ($options as $count => $option) {
-            $weight = []; // new \stdClass();
-            $weight['key'] = $option;
-            $weight['value'] = \TYPO3\CMS\Extbase\Utility\LocalizationUtility::translate('LLL:EXT:t3quotes/Resources/Private/Language/locallang_db.xlf:tx_t3quotes_domain_model_t3quotes.weight.I.' . $count, 't3quotes');
-            $weights[] = $weight;
-        }
-        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(['method'=>__METHOD__, '$weights'=>$weights]);
-        return $weights;
     }
 
     public function initializeCreateAction()
     {
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump([
-            // '$this->arguments' => $this->arguments,
-            '$this->arguments[newT3quotes]' => $this->arguments['newT3quotes'],
-        ]);
-        */
-
-        $this->arguments['newT3quotes']
+        $this->arguments['newT3quote']
             ->getPropertyMappingConfiguration()
             ->forProperty('date')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
-
-        $this->arguments['newT3quotes']
+        $this->arguments['newT3quote']
             ->getPropertyMappingConfiguration()
             ->forProperty('weight')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
                 '', ''
-                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
     }
 
@@ -229,25 +192,22 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * @param \WDB\T3quotes\Domain\Model\T3quotes $newT3quotes
      * @return void
      */
-    public function createAction(\WDB\T3quotes\Domain\Model\T3quotes $newT3quotes)
+    public function createAction(\WDB\T3quotes\Domain\Model\T3quotes $newT3quote)
     {
         // $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
 
-        $this->t3quotesRepository->add($newT3quotes);
+        $pid = \WDB\T3quotes\Utilities\ArrayUtility::getSingleStoragePid($this->getContentObject(), $this->configuration);
+        $newT3quote->setPid($pid);
+		$this->t3quotesRepository->add($newT3quote);
+        $this->persistenceManager->persistAll();
+        $uid = $newT3quote->getUid();
+        
+        // TODO: add choice for action/template [update | show | list]
         $this->redirect('list');
     }
 
     public function initializeEditAction()
     {
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__.':'.__LINE__,
-            '$this->arguments' => $this->arguments,
-            '$this'=>$this,
-            '$this->quotes'=>$this->quotes
-        ));
-        */
-
         $this->arguments['t3quote']
             ->getPropertyMappingConfiguration()
             ->forProperty('date')
@@ -255,14 +215,12 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\DateTimeConverter',
                 \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
-
         $this->arguments['t3quote']
             ->getPropertyMappingConfiguration()
             ->forProperty('weight')
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
                 '', ''
-                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
     }
 
@@ -275,29 +233,12 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function editAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
     {
-        $t3quote->weights = $this->getWeights();
-
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__.':'.__LINE__,
-            '$t3quote' => $t3quote
-        ));
-        */
-
+        $t3quote->weights = \WDB\T3quotes\Utilities\ArrayUtility::getWeights();
         $this->view->assign('t3quote', $t3quote);
     }
 
     public function initializeUpdateAction()
     {
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__.':'.__LINE__,
-            '$this->arguments' => $this->arguments,
-            '$this->quote'=>$this->quote,
-            '$this->quotes'=>$this->quotes
-        ));
-        */
-
         // for validation of date
         $this->arguments['t3quote']
             ->getPropertyMappingConfiguration()
@@ -313,7 +254,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             ->setTypeConverterOption(
                 'TYPO3\\CMS\\Extbase\\Property\\TypeConverter\\IntegerConverter',
                 '', ''
-                // \TYPO3\CMS\Extbase\Property\TypeConverter\DateTimeConverter::CONFIGURATION_DATE_FORMAT, 'Y-m-d'
             );
     }
 
@@ -329,7 +269,14 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
         // $t3quote->setDate(new \DateTime( $t3quotes->getDate() ));
         $this->t3quotesRepository->update($t3quote);
-        $this->redirect('show', $t3quote);
+		if (!is_object($t3quote)) {
+            $this->addFlashMessage($GLOBALS['LANG']->sL('LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf:tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject'));
+            $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
+            $this->redirect('edit', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
+        } else {
+			// TODO: add choice for action/template [update | show | list]
+            $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
+        }
         // $this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
 
         // $t3quote = is_object($t3quote) ? $t3quote : $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
@@ -350,47 +297,45 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->redirect('list');
     }
 
-    public function parseViewPaths(array $paths)
+    /**
+     * Getting $cObj with data of the current CE if possible
+     *
+     * @TODO: is there a way to find that of the current active CE (for create-action)
+     *        instead of crawling the records of the current page?
+     *
+     * @return object \TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+     */
+    protected function getContentObject()
     {
-        foreach ($paths as $key => $pathConfig) {
-            if (array_key_exists($key . '.', $paths)) {
-                $paths[$key] = $this->resolveSinglePath($paths[$key], $paths[$key . '.']);
-                unset($paths[$key . '.']);
-            }
-        }
-        return $paths;
-    }
-
-    public function resolveSinglePath($name, array $pathConfig)
-    {
-        $path = '';
-        $cObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer::class);
-        $conf = [
-            '10'  => $name,
-            '10.' => $pathConfig
-        ];
-        $path = $cObj->cObjGet($conf);
-        return $path;
-    }
-
-    public function substituteConstants($typoScript, $flatConstantArray)
-    {
-        if (is_array($typoScript)) {
-            foreach ($typoScript as $key => $value) {
-                if (is_array($value)) {
-                    $this->substituteConstants($value, $flatConstantArray);
-                } else {
-                    foreach ($flatConstantArray as $flatConstant => $flatValue) {
-                        if ($value === '{$' . $flatConstant . '}') {
-                            $typoScript[$key] = $flatValue;
-                        } else {
-                            $typoScript[$key] = preg_replace('/(\{\$' . $flatConstant . '\})/i', $flatValue, $value);
+		$cObj = $this->configurationManager->getContentObject();
+        if (isset($cObj->data['uid']) && $cObj->table=='tt_content') {
+            return $cObj;
+        } else {
+            $currentRecord = explode(':', $GLOBALS['TSFE']->currentRecord);
+            $table = $currentRecord[0];
+			if ($table==='tt_content') {
+				$uid = $currentRecord[1];
+                $data = $this->ttContentRepository->findByUid($uid);
+                $cObj->start($data->toArray(), $table);
+                $cObj->currentRecord = $table . ':' . $uid;
+            } else {
+                if (in_array($this->resolveActionMethodName(), ['createAction'])) {
+                    $records = $this->ttContentRepository->findByPid($GLOBALS['TSFE']->id);
+                    if (count($records)) {
+                        $pidArray = [];
+                        foreach ($records as $count => $record) {
+                            $pidArray[] = implode(',',array_map('intval', explode(',',$record->getPages())));
                         }
+                        $data = $record->toArray();
+                        $data['pages'] = implode(',', $pidArray);
+                        $data['pid'] = $GLOBALS['TSFE']->id;
+                        $cObj->start($data, 'tt_content');
+                        $cObj->currentRecord = 'tt_content:' . $record->getUid();
                     }
                 }
             }
         }
-        return $typoScript;
+        return $cObj;
     }
 
     /**
@@ -411,7 +356,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 unset($view);
             }
         }
-
         if (!isset($view) && $this->defaultViewObjectName != '') {
             // @var $view ViewInterface
             $view = $this->objectManager->get($this->defaultViewObjectName);
@@ -420,7 +364,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
                 unset($view);
             }
         }
-
         $actionName = $this->resolveActionMethodName();
         $templateName = substr($actionName, 0, -strlen('Action'));
 
@@ -437,30 +380,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->setTemplatePathAndFilename($templatePathAndFilename);
 
         // $view->setTemplateSource( file_get_contents($this->typoScript['view']['layoutRootPaths'][1]) );
-
-        /*
-        \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(array(
-            'method' => __METHOD__,
-            'getFormat' => $this->view->getFormat(),
-            'getRequest' => $this->view->getRequest(),
-            '$templateName' => $templateName,
-            '$this->typoScript[\'view\'][\'templateRootPaths\'][1]' => $this->typoScript['view']['templateRootPaths'][1],
-            '$templatePathAndFilename' => $templatePathAndFilename,
-            'getTemplatePathAndFilename' => $this->view->getTemplatePathAndFilename(),
-            // 'getLayoutRootPath'=>$this->view->getLayoutRootPath(),
-            'getLayoutRootPaths' => $this->view->getLayoutRootPaths(),
-            // 'getPartialRootPath'=>$this->view->getPartialRootPath(),
-            'getPartialRootPaths' => $this->view->getPartialRootPaths(),
-            // 'getTemplateSource' => $this->view->getTemplateSourcePublic(),
-            // 'getTemplateRootPaths'=>$this->view->getTemplateRootPaths(),
-            'hasTemplate' => $this->view->hasTemplate(),
-            'backtrace' => debug_backtrace(),
-            // '$this->controllerContext' => $this->controllerContext,
-            '$viewObjectName'=> $viewObjectName,
-            '$actionName' => $actionName,
-            '$templateName' => $templateName,
-        ));
-        */
 
         $this->view->setControllerContext($this->controllerContext);
         $this->view->initializeView();

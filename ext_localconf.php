@@ -7,9 +7,9 @@ function configureT3quotesPlugin()
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
         'WDB.T3quotes',
         'T3quotes',
-        ['T3quotes' => 'list, show, new, create, edit, update, delete'],
+        ['T3quotes' => 'list,show,new,create,edit,update,delete'],
         // non-cacheable actions
-        ['T3quotes' => 'create, update, delete']
+        ['T3quotes' => 'create,edit,update,delete']
     );
 }
 
