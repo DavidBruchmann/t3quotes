@@ -105,4 +105,9 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     {
         $this->storagePageIds = $storagePageIds;
     }
+
+    public function getStoragePageIds()
+    {
+        return $storagePageIds;
+    }
 }

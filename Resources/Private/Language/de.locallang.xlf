@@ -162,6 +162,13 @@
 				<source>Path to template layouts (FE)</source>
 				<target state="translated">Pfad zu den Layouts (FE)</target>
 			</trans-unit>
+
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject">
+				<source>Das Zitat konnte nicht gespeichert werden. Verwenden Sie den "Zurück"-Button des Browsers um eine Wiederherstellung zu versuchen und speichern Sie erneut.</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated">
+				<source>The quote was updated.</source>
+			</trans-unit>
 			
 			
 			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">

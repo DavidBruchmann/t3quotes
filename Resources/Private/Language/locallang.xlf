@@ -118,6 +118,9 @@
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject">
 				<source>Something went wrong while saving the quote. Use the browser's back-button for trying to recover and save again.</source>
 			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated">
+				<source>The quote was updated.</source>
+			</trans-unit>
 
 
 			<trans-unit id="tx_t3quotes_domain_model_ttcontent.t3quotes_selected">

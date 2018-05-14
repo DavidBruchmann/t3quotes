@@ -76,12 +76,20 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->settings['typo3Version'] = $typo3Version;
         $this->settings['typo3VersionArray'] = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionStringToArray($typo3Version);
 
+
+        if (!is_object($this->t3quotesRepository)) {
+            $this->t3quotesRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\t3quotesRepository');
+        }
         if (!is_object($this->ttContentRepository)) {
             $this->ttContentRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\TtContentRepository');
         }
         if (!is_object($this->persistenceManager)) {
             $this->persistenceManager = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager');
         }
+
+        $this->storagePageIds = \WDB\T3quotes\Utilities\ArrayUtility::getStoragePids($this->getContentObject(), $this->configuration);
+        $this->t3quotesRepository->setStoragePageIds($this->storagePageIds);
+        $this->t3quotesRepository->initializeObject();
 
         /*
         // storing flatSetup in cache if existing
@@ -124,9 +132,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->setLayoutRootPaths($this->configuration['view']['layoutRootPaths']);
         $this->view->setTemplateRootPaths($this->configuration['view']['templateRootPaths']);
         $this->view->setPartialRootPaths($this->configuration['view']['partialRootPaths']);
-
-        $storagePageIds = \WDB\T3quotes\Utilities\ArrayUtility::getStoragePids($this->getContentObject(), $this->configuration);
-        $this->t3quotesRepository->setStoragePageIds($storagePageIds);
     }
 
     /**
@@ -275,6 +280,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
             $this->redirect('edit', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
         } else {
             // TODO: add choice for action/template [update | show | list]
+            $this->addFlashMessage($GLOBALS['LANG']->sL('LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf:tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated'));
             $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
         }
         // $this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
@@ -308,7 +314,7 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected function getContentObject()
     {
         $cObj = $this->configurationManager->getContentObject();
-        if (isset($cObj->data['uid']) && $cObj->table=='tt_content') {
+        if (isset($cObj->data['uid']) && $cObj->getCurrentTable()=='tt_content') {
             return $cObj;
         } else {
             $currentRecord = explode(':', $GLOBALS['TSFE']->currentRecord);
