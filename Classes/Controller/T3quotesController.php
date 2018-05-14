@@ -76,7 +76,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->settings['typo3Version'] = $typo3Version;
         $this->settings['typo3VersionArray'] = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionStringToArray($typo3Version);
 
-
         if (!is_object($this->t3quotesRepository)) {
             $this->t3quotesRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\t3quotesRepository');
         }

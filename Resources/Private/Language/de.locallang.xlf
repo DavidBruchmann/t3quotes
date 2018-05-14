@@ -167,7 +167,7 @@
 				<source>Das Zitat konnte nicht gespeichert werden. Verwenden Sie den "Zurück"-Button des Browsers um eine Wiederherstellung zu versuchen und speichern Sie erneut.</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated">
-				<source>The quote was updated.</source>
+				<source>Das Zitat wurde aktualisiert.</source>
 			</trans-unit>
 			
 			
