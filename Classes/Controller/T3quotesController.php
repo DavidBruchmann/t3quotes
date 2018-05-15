@@ -45,9 +45,9 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     protected $storagePageIds = [0];
 
     protected $languageFile = 'LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf';
-    
+
     protected $repositoryNamespace = 'WDB\T3quotes\Domain\Repository';
-    
+
 //    /**
 //     * @var string
 //     * @api
@@ -497,34 +497,31 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * can be used to store $GLOBALS['TSFE']->tmpl->flatSetup, which is not available on chached pages,
      * it consists of the typoscript-config and is used for replacements
      * for usage some part in ext_tables.php has to be activated
-     * 
+     *
      * @return void
      */
     protected function initTsConstantsCache()
     {
         $cacheIdentifier = sha1((string)$GLOBALS['TSFE']->newHash);
         $cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache('t3quotes_t3quotes');
-        $cacheConfigurations[$cacheIdentifier]['frontend'] = array();
+        $cacheConfigurations[$cacheIdentifier]['frontend'] = [];
         // $cache->setCacheConfigurations( $cacheConfigurations[$cacheIdentifier]['frontend'] );
 
         // storing flatSetup in cache if existing
         // or retrieving flatSetup from cache if not existing
         $flatSetup = $GLOBALS['TSFE']->tmpl->flatSetup;
-        if(is_array($flatSetup) && count($flatSetup)) {
+        if (is_array($flatSetup) && count($flatSetup)) {
             // saving $flatSetup in cache
-            $tsConfigFlat = array();
-            foreach($flatSetup as $key => $value)
-            {
-                if(strpos($key,'plugin.tx_t3quotes_t3quotes')!==FALSE)
-                {
+            $tsConfigFlat = [];
+            foreach ($flatSetup as $key => $value) {
+                if (strpos($key, 'plugin.tx_t3quotes_t3quotes') !== false) {
                     $tsConfigFlat[$key] = $value;
                 }
             }
             $this->viewSetupRaw = $this->configuration['view'];
             $this->viewSetup = \WDB\T3quotes\Utilities\ArrayUtility::substituteTyposcriptConstants($this->viewSetupRaw, $tsConfigFlat);
             $cache->set($cacheIdentifier, $flatSetup); // , $tags, $lifetime
-        }
-        else {
+        } else {
             // restoring $flatSetup from cache
             $this->viewSetup = $cache->get($cacheIdentifier);
         }
