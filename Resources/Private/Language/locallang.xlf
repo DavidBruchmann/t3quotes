@@ -115,11 +115,33 @@
 				<source>Path to template layouts (FE)</source>
 			</trans-unit>
 
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.notice">
+                <source>Notice</source>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.info">
+                <source>Info</source>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.ok">
+                <source>Success</source>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.warning">
+                <source>Warning</source>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.error">
+                <source>Error</source>
+            </trans-unit>
+
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.createAction.created">
+				<source>The quote was created.</source>
+			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject">
 				<source>Something went wrong while saving the quote. Use the browser's back-button for trying to recover and save again.</source>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated">
 				<source>The quote was updated.</source>
+			</trans-unit>
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.deleteAction.deleted">
+				<source>The quote was deleted.</source>
 			</trans-unit>
 
 

@@ -44,6 +44,10 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     protected $storagePageIds = [0];
 
+    protected $languageFile = 'LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf';
+    
+    protected $repositoryNamespace = 'WDB\T3quotes\Domain\Repository';
+    
 //    /**
 //     * @var string
 //     * @api
@@ -52,14 +56,6 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
 
     public function initializeAction()
     {
-        // cache, not needed
-        // can be used to store $GLOBALS['TSFE']->tmpl->flatSetup, which is not available on chached pages,
-        // it consists of the typoscript-config and is used for replacements
-        //        $cacheIdentifier = sha1((string)$GLOBALS['TSFE']->newHash);
-        //        $cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache('t3quotes_t3quotes');
-        //        $cacheConfigurations[$cacheIdentifier]['frontend'] = array();
-        //        #$cache->setCacheConfigurations( $cacheConfigurations[$cacheIdentifier]['frontend'] );
-
         // $this->configuration consists of interpreted typoscript-setup for this extension
         // $this->configuration['view'] is not yet parsed / interpreted at this point
         $this->configuration = $this->configurationManager->getConfiguration($this->configurationManager::CONFIGURATION_TYPE_FRAMEWORK);
@@ -77,10 +73,10 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->settings['typo3VersionArray'] = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionStringToArray($typo3Version);
 
         if (!is_object($this->t3quotesRepository)) {
-            $this->t3quotesRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\t3quotesRepository');
+            $this->t3quotesRepository = $this->objectManager->get($this->repositoryNamespace . '\t3quotesRepository');
         }
         if (!is_object($this->ttContentRepository)) {
-            $this->ttContentRepository = $this->objectManager->get('WDB\T3quotes\Domain\Repository\TtContentRepository');
+            $this->ttContentRepository = $this->objectManager->get($this->repositoryNamespace . '\TtContentRepository');
         }
         if (!is_object($this->persistenceManager)) {
             $this->persistenceManager = $this->objectManager->get('TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager');
@@ -90,29 +86,8 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->t3quotesRepository->setStoragePageIds($this->storagePageIds);
         $this->t3quotesRepository->initializeObject();
 
-        /*
-        // storing flatSetup in cache if existing
-        // or retrieving flatSetup from cache if not existing
-        $flatSetup = $GLOBALS['TSFE']->tmpl->flatSetup;
-        if(is_array($flatSetup) && count($flatSetup)) {
-            // saving $flatSetup in cache
-            $tsConfigFlat = array();
-            foreach($flatSetup as $key => $value)
-            {
-                if(strpos($key,'plugin.tx_t3quotes_t3quotes')!==FALSE)
-                {
-                    $tsConfigFlat[$key] = $value;
-                }
-            }
-            $this->viewSetupRaw = $this->configuration['view'];
-            $this->viewSetup = \WDB\T3quotes\Utilities\ArrayUtility::substituteTyposcriptConstants($this->viewSetupRaw, $tsConfigFlat);
-            $cache->set($cacheIdentifier, $flatSetup); // , $tags, $lifetime
-        }
-        else {
-            // restoring $flatSetup from cache
-            $this->viewSetup = $cache->get($cacheIdentifier);
-        }
-        */
+        // @see initTsConstantsCache() to activate
+        // $this->initTsConstantsCache();
 
         $this->view = $this->objectManager->get(\WDB\T3quotes\View\T3quotesView::class);
         if (!isset($this->view)) {
@@ -136,11 +111,13 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     /**
      * action list
      *
+     * @param string shortcode for message to show in some cases
      * @return void
      */
-    public function listAction()
+    public function listAction($msg='')
     {
         $t3quotes = $this->t3quotesRepository->findAll();
+        $this->callFlashMessage($msg);
         $this->view->assign('t3quotes', $t3quotes);
     }
 
@@ -148,28 +125,36 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action show
      *
      * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
+     * @param string shortcode for message to show in some cases
      * @return void
      */
-    public function showAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote = null)
+    public function showAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote = null, $msg='')
     {
         if (!$t3quote) {
             $arguments = $this->request->getArguments();
             $t3quote = $this->t3quotesRepository->findByUid(intval($arguments['t3quote']));
         }
+        $this->callFlashMessage($msg);
         $this->view->assign('t3quote', $t3quote);
     }
 
     /**
      * action new
+     * @param string shortcode for message to show in some cases
      *
      * @return void
      */
-    public function newAction()
+    public function newAction($msg='')
     {
-        $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
-        $t3quote->setDate(new \DateTime('now'));
-        $t3quote->weights = \WDB\T3quotes\Utilities\ArrayUtility::getWeights();
-        $this->view->assign('t3quote', $t3quote);
+        if ($this->checkNewActionAccess()) {
+            $this->callFlashMessage($msg);
+            $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
+            $t3quote->setDate(new \DateTime('now'));
+            $t3quote->weights = \WDB\T3quotes\Utilities\ArrayUtility::getWeights();
+            $this->view->assign('t3quote', $t3quote);
+        } else {
+            $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'error_newAction.noAccess']);
+        }
     }
 
     public function initializeCreateAction()
@@ -194,20 +179,27 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action create
      *
      * @param \WDB\T3quotes\Domain\Model\T3quotes $newT3quotes
+     * @param string shortcode for message to show in some cases
      * @return void
      */
-    public function createAction(\WDB\T3quotes\Domain\Model\T3quotes $newT3quote)
+    public function createAction(\WDB\T3quotes\Domain\Model\T3quotes $newT3quote, $msg='')
     {
         // $this->addFlashMessage('The object was created. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
 
-        $pid = \WDB\T3quotes\Utilities\ArrayUtility::getSingleStoragePid($this->getContentObject(), $this->configuration);
-        $newT3quote->setPid($pid);
-        $this->t3quotesRepository->add($newT3quote);
-        $this->persistenceManager->persistAll();
-        $uid = $newT3quote->getUid();
+        if ($this->checkCreateActionAccess()) {
+            $this->callFlashMessage($msg);
+            $LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+            $pid = \WDB\T3quotes\Utilities\ArrayUtility::getSingleStoragePid($this->getContentObject(), $this->configuration);
+            $newT3quote->setPid($pid);
+            $this->t3quotesRepository->add($newT3quote);
+            $this->persistenceManager->persistAll();
+            // $uid = $newT3quote->getUid();
 
-        // TODO: add choice for action/template [update | show | list]
-        $this->redirect('list');
+            // TODO: add choice for action/template [update | show | list]
+            $this->redirect('list', 'T3quotes', 't3quotes', ['t3quote'=>$newT3quote, 'msg'=>'ok_createAction.created']);
+        } else {
+            $this->redirect('list', 'T3quotes', 't3quotes', ['msg'=>'error_createAction.noAccess']);
+        }
     }
 
     public function initializeEditAction()
@@ -232,13 +224,19 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action edit
      *
      * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
+     * @param string shortcode for message to show in some cases
      * @ignorevalidation $t3quotes
      * @return void
      */
-    public function editAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
+    public function editAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote, $msg='')
     {
-        $t3quote->weights = \WDB\T3quotes\Utilities\ArrayUtility::getWeights();
-        $this->view->assign('t3quote', $t3quote);
+        if ($this->checkEditActionAccess()) {
+            $this->callFlashMessage($msg);
+            $t3quote->weights = \WDB\T3quotes\Utilities\ArrayUtility::getWeights();
+            $this->view->assign('t3quote', $t3quote);
+        } else {
+            $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'error_editAction.noAccess']);
+        }
     }
 
     public function initializeUpdateAction()
@@ -265,41 +263,79 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * action update
      *
      * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
+     * @param string shortcode for message to show in some cases
      * @return void
      */
-    public function updateAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
+    public function updateAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote, $msg='')
     {
         // $this->addFlashMessage('The object was updated. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-
-        // $t3quote->setDate(new \DateTime( $t3quotes->getDate() ));
-        $this->t3quotesRepository->update($t3quote);
-        if (!is_object($t3quote)) {
-            $this->addFlashMessage($GLOBALS['LANG']->sL('LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf:tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject'));
-            $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
-            $this->redirect('edit', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
+        if ($this->checkUpdateActionAccess()) {
+            $this->callFlashMessage($msg);
+            // $t3quote->setDate(new \DateTime( $t3quotes->getDate() ));
+            $this->t3quotesRepository->update($t3quote);
+            $LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+            if (!is_object($t3quote)) {
+                $t3quote = $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
+                $this->redirect('edit', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'error_updateAction.noObject']);
+            } else {
+                // TODO: add choice for action/template [update | show | list]
+                $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'ok_updateAction.updated']);
+            }
+            // $this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
+            // $t3quote = is_object($t3quote) ? $t3quote : $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
+            // $this->view->assign('t3quote', $t3quote);
         } else {
-            // TODO: add choice for action/template [update | show | list]
-            $this->addFlashMessage($GLOBALS['LANG']->sL('LLL:EXT:t3quotes/Resources/Private/Language/locallang.xlf:tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated'));
-            $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote]);
+            $this->redirect('show', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'error_updateAction.noAccess']);
         }
-        // $this->t3quotesRepository->persistenceManager->persistAll(); TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager.
-
-        // $t3quote = is_object($t3quote) ? $t3quote : $this->objectManager->get('WDB\T3quotes\Domain\Model\T3quotes');
-        // $this->view->assign('t3quote', $t3quote);
     }
 
     /**
      * action delete
      *
      * @param \WDB\T3quotes\Domain\Model\T3quotes $t3quote
+     * @param string shortcode for message to show in some cases
      * @return void
      */
-    public function deleteAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote)
+    public function deleteAction(\WDB\T3quotes\Domain\Model\T3quotes $t3quote, $msg='')
     {
         // $this->addFlashMessage('The object was deleted. Please be aware that this action is publicly accessible unless you implement an access check. See https://docs.typo3.org/typo3cms/extensions/extension_builder/User/Index.html', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+        if ($this->checkDeleteActionAccess()) {
+            $this->callFlashMessage($msg);
+            $this->t3quotesRepository->remove($t3quote);
+            $this->redirect('list', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'ok_deleteAction.deleted']);
+        } else {
+            $this->redirect('list', 'T3quotes', 't3quotes', ['t3quote'=>$t3quote, 'msg'=>'error_deleteAction.noAccess']);
+        }
+    }
 
-        $this->t3quotesRepository->remove($t3quote);
-        $this->redirect('list');
+    protected function checkEditAccess()
+    {
+        return true;
+    }
+
+    protected function checkNewActionAccess()
+    {
+        return $this->checkEditAccess();
+    }
+
+    protected function checkCreateActionAccess()
+    {
+        return $this->checkEditAccess();
+    }
+
+    protected function checkEditActionAccess()
+    {
+        return $this->checkEditAccess();
+    }
+
+    protected function checkUpdateActionAccess()
+    {
+        return $this->checkEditAccess();
+    }
+
+    protected function checkDeleteActionAccess()
+    {
+        return $this->checkEditAccess();
     }
 
     /**
@@ -393,5 +429,104 @@ class T3quotesController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
         $this->view->assign('settings', $this->settings);
         // same with settings injection.
         return $this->view;
+    }
+
+    /**
+     * @see // https://docs.typo3.org/typo3cms/CoreApiReference/ApiOverview/FlashMessages/Index.html?highlight=flashmessage
+     *
+     * @param string in special format like "ok_deleteAction.deleted" [SERVERITY_ACTION.MESSAGE]
+     */
+    protected function callFlashMessage($message)
+    {
+        if ($message) {
+            $LANG = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Lang\LanguageService::class);
+            $header = '';
+            $msg = '';
+            $severity = 0;
+            $parts = explode('_', $message);
+            if (in_array($parts[0], ['notice', 'info', 'ok', 'warning', 'error'])) {
+                $header = $LANG->sL($this->languageFile . ':tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.' . $parts[0]);
+                $severity = constant('\TYPO3\CMS\Core\Messaging\AbstractMessage::' . strtoupper($parts[0]));
+                /*
+                switch($parts[0])
+                {
+                    case 'notice': $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::NOTICE; break; // -2
+                    case 'info': $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::INFO; break; // -1
+                    case 'ok': $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::OK; break; // 0
+                    case 'warning': $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING; break; // 1
+                    case 'error': $severity = \TYPO3\CMS\Core\Messaging\AbstractMessage::ERROR; break; // 2
+                }
+                */
+            }
+            $msgParts = explode('.', $parts[1]);
+            if (in_array($msgParts[0], ['createAction', 'deleteAction', 'editAction', 'listAction', 'newAction', 'showAction', 'updateAction'])) {
+                $msg = $LANG->sL($this->languageFile . ':tx_t3quotes_domain_model_t3quotes.controllerMessages.' . $msgParts[0] . '.' . $msgParts[1]);
+            }
+            if ($header || $msg) {
+                $this->addFlashMessage(
+                    $msg,
+                    $header,
+                    $severity,
+                    $storeInSession = ($severity == 'ERROR' ? true : false)
+                );
+            }
+            /*
+            \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump(
+                [
+                    '__METHOD__' => __METHOD__,
+                    '$message' => $message,
+                    'header' => $header,
+                    '$msg' => $msg,
+                    '$severity' => $severity
+                ],
+                $title = null,
+                $maxDepth = 12,
+                $plainText = false,
+                $ansiColors = true,
+                $return = false,
+                $blacklistedClassNames = array(),
+                $blacklistedPropertyNames = null
+            );
+            */
+        }
+        return;
+    }
+
+    /**
+     * cache, not needed
+     * can be used to store $GLOBALS['TSFE']->tmpl->flatSetup, which is not available on chached pages,
+     * it consists of the typoscript-config and is used for replacements
+     * for usage some part in ext_tables.php has to be activated
+     * 
+     * @return void
+     */
+    protected function initTsConstantsCache()
+    {
+        $cacheIdentifier = sha1((string)$GLOBALS['TSFE']->newHash);
+        $cache = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager')->getCache('t3quotes_t3quotes');
+        $cacheConfigurations[$cacheIdentifier]['frontend'] = array();
+        // $cache->setCacheConfigurations( $cacheConfigurations[$cacheIdentifier]['frontend'] );
+
+        // storing flatSetup in cache if existing
+        // or retrieving flatSetup from cache if not existing
+        $flatSetup = $GLOBALS['TSFE']->tmpl->flatSetup;
+        if(is_array($flatSetup) && count($flatSetup)) {
+            // saving $flatSetup in cache
+            $tsConfigFlat = array();
+            foreach($flatSetup as $key => $value)
+            {
+                if(strpos($key,'plugin.tx_t3quotes_t3quotes')!==FALSE)
+                {
+                    $tsConfigFlat[$key] = $value;
+                }
+            }
+            $this->viewSetupRaw = $this->configuration['view'];
+            $this->viewSetup = \WDB\T3quotes\Utilities\ArrayUtility::substituteTyposcriptConstants($this->viewSetupRaw, $tsConfigFlat);
+            $cache->set($cacheIdentifier, $flatSetup); // , $tags, $lifetime
+        }
+        else {
+            // restoring $flatSetup from cache
+            $this->viewSetup = $cache->get($cacheIdentifier);
+        }
     }
 }

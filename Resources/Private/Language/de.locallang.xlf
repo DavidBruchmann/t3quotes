@@ -163,11 +163,38 @@
 				<target state="translated">Pfad zu den Layouts (FE)</target>
 			</trans-unit>
 
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.notice">
+                <source>Notice</source>
+                <target>Hinweis</target>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.info">
+                <source>Info</source>
+                <target>Info</target>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.ok">
+                <source>Success</source>
+                <target>Erfolg</target>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.warning">
+                <source>Warning</source>
+                <target>Warnung</target>
+            </trans-unit>
+            <trans-unit id="tx_t3quotes_domain_model_t3quotes.flashMessages.headlines.error">
+                <source>Error</source>
+                <target>Error</target>
+            </trans-unit>
+            
+			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.createAction.created">
+				<source>The quote was created.</source>
+				<target>Das Zitat wurde erstellt.</target>
+			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.noObject">
-				<source>Das Zitat konnte nicht gespeichert werden. Verwenden Sie den "Zurück"-Button des Browsers um eine Wiederherstellung zu versuchen und speichern Sie erneut.</source>
+				<source>Something went wrong while saving the quote. Use the browser's back-button for trying to recover and save again.</source>
+				<target>Das Zitat konnte nicht gespeichert werden. Verwenden Sie den "Zurück"-Button des Browsers um eine Wiederherstellung zu versuchen und speichern Sie erneut.</target>
 			</trans-unit>
 			<trans-unit id="tx_t3quotes_domain_model_t3quotes.controllerMessages.updateAction.updated">
-				<source>Das Zitat wurde aktualisiert.</source>
+				<source>The quote was updated.</source>
+				<target>Das Zitat wurde aktualisiert.</target>
 			</trans-unit>
 			
 			

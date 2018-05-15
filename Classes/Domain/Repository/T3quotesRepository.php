@@ -84,6 +84,22 @@ class T3quotesRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
+     * Returns all objects of this repository.
+     *
+     * @return QueryResultInterface|array
+     * @api
+     */
+    public function findAll()
+    {
+        $query = $this->createQuery();
+        $query->setOrderings([
+            'weight' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING,
+            'date' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+        ]);
+        return $query->execute();
+    }
+
+    /**
      * Replaces an existing object with the same identifier by the given object
      *
      * @param object $modifiedObject The modified object
